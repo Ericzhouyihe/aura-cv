@@ -48,7 +48,7 @@ Magic Resume is a modern online resume editor that makes creating professional r
 
 ```bash
 git clone git@github.com:JOYCEQL/magic-resume.git
-cd magic-resume
+cd aura-cv
 ```
 
 2. Install dependencies

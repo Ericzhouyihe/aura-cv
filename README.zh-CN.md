@@ -48,7 +48,7 @@ Magic Resume 是一个现代化的在线简历编辑器，让创建专业简历�
 
 ```bash
 git clone git@github.com:JOYCEQL/magic-resume.git
-cd magic-resume
+cd aura-cv
 ```
 
 2. 安装依赖
