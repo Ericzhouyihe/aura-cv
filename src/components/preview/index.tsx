@@ -9,15 +9,14 @@ import { useAutoOnePage } from "@/hooks/useAutoOnePage";
 import { useTranslations } from "@/i18n/compat/client";
 import { normalizeFontFamily } from "@/utils/fonts";
 import ResumeTemplateComponent from "../templates";
-
-interface PreviewPanelProps {
-  sidePanelCollapsed: boolean;
-  editPanelCollapsed: boolean;
-  previewPanelCollapsed: boolean;
-  toggleSidePanel: () => void;
-  toggleEditPanel: () => void;
-  togglePreviewPanel: () => void;
-}
+import {
+  A4_HEIGHT_PX,
+  A4_WIDTH_PX,
+  MIN_PREVIEW_SCALE,
+  calculatePreviewGeometry,
+  calculatePreviewPageHeight,
+  type PreviewGeometry,
+} from "./preview-geometry";
 
 const PageBreakLine = React.memo(
   ({
@@ -52,18 +51,12 @@ const PageBreakLine = React.memo(
 
 PageBreakLine.displayName = "PageBreakLine";
 
+interface PreviewPanelProps {
+  onGeometryChange?: (geometry: PreviewGeometry) => void;
+}
+
 const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
-  (
-    {
-      sidePanelCollapsed,
-      editPanelCollapsed,
-      previewPanelCollapsed,
-      toggleSidePanel,
-      toggleEditPanel,
-      togglePreviewPanel,
-    },
-    ref
-  ) => {
+  ({ onGeometryChange }, ref) => {
     const { activeResume, setActiveSection } = useResumeStore();
     const selectedFontFamily = normalizeFontFamily(
       activeResume?.globalSettings?.fontFamily
@@ -81,6 +74,24 @@ const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
     const internalResumeContentRef = useRef<HTMLDivElement>(null);
     const resumeContentRef = (ref as React.MutableRefObject<HTMLDivElement>) || internalResumeContentRef;
     const [contentHeight, setContentHeight] = useState(0);
+    const [previewScale, setPreviewScale] = useState(MIN_PREVIEW_SCALE);
+
+    useEffect(() => {
+      const container = previewRef.current;
+      if (!container) return;
+
+      const updatePreviewScale = () => {
+        const geometry = calculatePreviewGeometry(container.clientWidth);
+        setPreviewScale(geometry.scale);
+        onGeometryChange?.(geometry);
+      };
+
+      updatePreviewScale();
+      const resizeObserver = new ResizeObserver(updatePreviewScale);
+      resizeObserver.observe(container);
+
+      return () => resizeObserver.disconnect();
+    }, [activeResume?.id, onGeometryChange]);
 
     const updateContentHeight = () => {
       if (resumeContentRef.current) {
@@ -123,7 +134,7 @@ const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
         observer.disconnect();
         resizeObserver.disconnect();
       };
-    }, []);
+    }, [activeResume?.id]);
 
     useEffect(() => {
       if (activeResume) {
@@ -140,6 +151,11 @@ const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
       pagePadding,
       enabled: autoOnePageEnabled,
     });
+
+    const previewPageHeight = calculatePreviewPageHeight(
+      contentHeight,
+      isScaled ? scaleFactor : 1
+    );
 
     useEffect(() => {
       if (cannotFit) {
@@ -199,23 +215,34 @@ const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
     return (
       <div
         ref={previewRef}
-        className="relative w-full h-full  bg-gray-100"
+        className="relative min-h-full w-full bg-workbench-canvas"
         style={{
           fontFamily: selectedFontFamily,
         }}
       >
-        <div className="py-4 ml-4 px-4 min-h-screen flex justify-center scale-[58%] origin-top md:scale-90 md:origin-top-left">
+        <div className="flex min-h-full min-w-full p-4">
           <div
-            ref={startRef}
-            className={cn(
-              "w-[210mm] min-w-[210mm] min-h-[297mm]",
-              "bg-white",
-              "shadow-lg",
-              "relative mx-auto"
-            )}
+            className="relative mx-auto shrink-0"
+            style={{
+              width: `${A4_WIDTH_PX * previewScale}px`,
+              height: `${previewPageHeight * previewScale}px`,
+            }}
           >
             <div
-              ref={resumeContentRef}
+              ref={startRef}
+              className={cn(
+                "absolute left-0 top-0 overflow-hidden w-[210mm] min-w-[210mm] min-h-[297mm]",
+                "bg-white",
+                "shadow-lg"
+              )}
+              style={{
+                height: `${previewPageHeight}px`,
+                transform: `scale(${previewScale})`,
+                transformOrigin: "top left",
+              }}
+            >
+              <div
+                ref={resumeContentRef}
               id="resume-preview"
               onClickCapture={handlePreviewClickCapture}
               style={{
@@ -231,7 +258,7 @@ const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
               }}
               className="relative"
             >
-              <style jsx global>{`
+              <style>{`
               .grammar-error {
                 cursor: help;
                 border-bottom: 2px dashed;
@@ -302,6 +329,7 @@ const PreviewPanel = React.forwardRef<HTMLDivElement, PreviewPanelProps>(
           </div>
         </div>
       </div>
+    </div>
     );
   });
 

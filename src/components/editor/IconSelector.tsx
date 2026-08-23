@@ -486,7 +486,7 @@ const IconSelector: React.FC<IconSelectorProps> = ({ value, onChange }) => {
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          "w-[420px] p-4",
+          "w-[min(420px,calc(100vw-16px))] p-3 sm:p-4",
           "bg-popover border-border",
           "shadow-lg backdrop-blur-sm",
           "animate-in zoom-in-95 duration-200"

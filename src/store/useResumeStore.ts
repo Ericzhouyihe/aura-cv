@@ -81,6 +81,7 @@ interface ResumeStore {
   setActiveSection: (sectionId: string) => void;
   updateMenuSections: (sections: ResumeData["menuSections"]) => void;
   createCustomSection: (section: MenuSection) => void;
+  deleteSection: (sectionId: string) => void;
   updateCustomData: (sectionId: string, items: CustomItem[]) => void;
   removeCustomData: (sectionId: string) => void;
   addCustomItem: (sectionId: string) => void;
@@ -761,15 +762,36 @@ export const useResumeStore = create(
 
       toggleSectionVisibility: (sectionId) => {
         const { activeResumeId, resumes } = get();
-        if (activeResumeId) {
-          const currentResume = resumes[activeResumeId];
-          const updatedSections = currentResume.menuSections.map((section) =>
-            section.id === sectionId
-              ? { ...section, enabled: !section.enabled }
-              : section
-          );
-          get().updateResume(activeResumeId, { menuSections: updatedSections });
-        }
+        if (!activeResumeId) return;
+
+        const currentResume = resumes[activeResumeId];
+        const sectionIndex = currentResume.menuSections.findIndex(
+          (section) => section.id === sectionId
+        );
+        if (sectionIndex < 0) return;
+
+        const updatedSections = currentResume.menuSections.map((section) =>
+          section.id === sectionId
+            ? { ...section, enabled: !section.enabled }
+            : section
+        );
+        const sectionWasHidden = !updatedSections[sectionIndex].enabled;
+        const visibleSections = updatedSections.filter(
+          (section) => section.enabled
+        );
+        const fallbackSection =
+          [...updatedSections.slice(0, sectionIndex)]
+            .reverse()
+            .find((section) => section.enabled) ?? visibleSections[0];
+        const activeSection =
+          sectionWasHidden && currentResume.activeSection === sectionId
+            ? fallbackSection?.id ?? currentResume.activeSection
+            : currentResume.activeSection;
+
+        get().updateResume(activeResumeId, {
+          menuSections: updatedSections,
+          activeSection,
+        });
       },
 
       setActiveSection: (sectionId) => {
@@ -803,6 +825,41 @@ export const useResumeStore = create(
           },
           activeSection: section.id,
         });
+      },
+
+      deleteSection: (sectionId) => {
+        const { activeResumeId, resumes } = get();
+        if (!activeResumeId || sectionId === "basic") return;
+
+        const currentResume = resumes[activeResumeId];
+        const sectionIndex = currentResume.menuSections.findIndex(
+          (section) => section.id === sectionId
+        );
+        if (sectionIndex < 0) return;
+
+        const menuSections = currentResume.menuSections
+          .filter((section) => section.id !== sectionId)
+          .map((section, index) => ({ ...section, order: index }));
+        const { [sectionId]: _, ...customData } = currentResume.customData;
+        const visibleSections = menuSections.filter((section) => section.enabled);
+        const fallbackSection =
+          [...menuSections.slice(0, sectionIndex)]
+            .reverse()
+            .find((section) => section.enabled) ??
+          visibleSections[0] ??
+          menuSections.find((section) => section.id === "basic");
+        const activeSection =
+          currentResume.activeSection === sectionId
+            ? fallbackSection?.id ?? "basic"
+            : currentResume.activeSection;
+
+        clearHistoryGroup(activeResumeId);
+        get().updateResume(activeResumeId, {
+          menuSections,
+          customData,
+          activeSection,
+        });
+        clearHistoryGroup(activeResumeId);
       },
 
       updateCustomData: (sectionId, items) => {

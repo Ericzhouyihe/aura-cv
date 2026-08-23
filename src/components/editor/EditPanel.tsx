@@ -52,14 +52,14 @@ export function EditPanel() {
   return (
     <motion.div
       className={cn(
-        "w-full h-full border-r overflow-y-auto",
+        "h-full w-full overflow-y-auto",
         "bg-background border-border"
       )}
     >
-      <div className="p-4">
+      <div className="p-3 min-[1100px]:p-4">
         <motion.div
           className={cn(
-            "mb-4 p-4 rounded-lg border",
+            "mb-3 rounded-md border p-3 xl:mb-4 xl:p-4",
             "bg-card border-border"
           )}
         >

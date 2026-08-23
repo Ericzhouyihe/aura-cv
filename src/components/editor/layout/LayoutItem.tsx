@@ -1,6 +1,13 @@
 
 import { motion, Reorder, useDragControls } from "framer-motion";
-import { Eye, EyeOff, GripVertical, Trash2 } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  EyeOff,
+  GripVertical,
+  Trash2,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MenuSection } from "@/types/resume";
 import { useTranslations } from "@/i18n/compat/client";
@@ -22,9 +29,11 @@ interface LayoutItemProps {
   activeSection: string;
   setActiveSection: (id: string) => void;
   toggleSectionVisibility: (id: string) => void;
-  updateMenuSections: (sections: MenuSection[]) => void;
-  removeCustomData: (sectionId: string) => void;
-  menuSections: MenuSection[];
+  deleteSection: (sectionId: string) => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+  canMoveUp?: boolean;
+  canMoveDown?: boolean;
 }
 
 const LayoutItem = ({
@@ -33,9 +42,11 @@ const LayoutItem = ({
   activeSection,
   setActiveSection,
   toggleSectionVisibility,
-  updateMenuSections,
-  removeCustomData,
-  menuSections
+  deleteSection,
+  onMoveUp,
+  onMoveDown,
+  canMoveUp = false,
+  canMoveDown = false,
 }: LayoutItemProps) => {
   const dragControls = useDragControls();
   const t = useTranslations("common");
@@ -85,14 +96,17 @@ const LayoutItem = ({
       whileHover={{ scale: 1.01 }}
       whileDrag={{ scale: 1.02 }}
     >
-      <div
+      <button
+        type="button"
+        aria-label={`拖拽排序${item.title}`}
+        title={`拖拽排序${item.title}`}
         onPointerDown={(event) => {
           dragControls.start(event);
         }}
         className={cn(
-          "w-8 flex items-center justify-center  touch-none shrink-0",
+          "flex w-8 shrink-0 touch-none items-center justify-center",
           "border-border",
-          "cursor-grab hover:bg-muted/50"
+          "cursor-grab hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
         )}
       >
         <GripVertical
@@ -102,10 +116,10 @@ const LayoutItem = ({
             "transform transition-transform group-hover:scale-110"
           )}
         />
-      </div>
+      </button>
 
       <div
-        className="flex select-none items-center p-3 space-x-3 flex-1  cursor-pointer"
+        className="flex min-w-0 flex-1 cursor-pointer select-none items-center space-x-3 p-3"
         onClick={() => setActiveSection(item.id)}
       >
         <div className="flex flex-1 items-center">
@@ -117,10 +131,39 @@ const LayoutItem = ({
           >
             {item.icon}
           </span>
-          <span className="text-sm flex-1">{item.title}</span>
+          <span className="min-w-0 flex-1 truncate text-sm">{item.title}</span>
+          <div className="mr-1 flex shrink-0 items-center">
+            <button
+              type="button"
+              aria-label={`上移${item.title}`}
+              title={`上移${item.title}`}
+              disabled={!canMoveUp}
+              onClick={(event) => {
+                event.stopPropagation();
+                onMoveUp?.();
+              }}
+              className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ChevronUp className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              aria-label={`下移${item.title}`}
+              title={`下移${item.title}`}
+              disabled={!canMoveDown}
+              onClick={(event) => {
+                event.stopPropagation();
+                onMoveDown?.();
+              }}
+              className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ChevronDown className="h-4 w-4" />
+            </button>
+          </div>
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            type="button"
+            aria-label={`${item.enabled ? "隐藏" : "显示"}${item.title}`}
+            title={`${item.enabled ? "隐藏" : "显示"}${item.title}`}
             onClick={(e) => {
               e.stopPropagation();
               toggleSectionVisibility(item.id);
@@ -140,6 +183,9 @@ const LayoutItem = ({
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <motion.button
+                type="button"
+                aria-label={`删除${item.title}`}
+                title={`删除${item.title}`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={(e) => e.stopPropagation()}
@@ -163,22 +209,7 @@ const LayoutItem = ({
                 <AlertDialogAction
                   onClick={(e) => {
                     e.stopPropagation();
-                    const updatedSections = menuSections.filter(
-                      (section) => section.id !== item.id
-                    );
-                    const currentIndex = menuSections.findIndex(
-                      (section) => section.id === item.id
-                    );
-                    const fallbackSection =
-                      menuSections[currentIndex - 1] ?? updatedSections[0];
-
-                    updateMenuSections(updatedSections);
-                    if (item.id.startsWith("custom")) {
-                      removeCustomData(item.id);
-                    }
-                    if (fallbackSection) {
-                      setActiveSection(fallbackSection.id);
-                    }
+                    deleteSection(item.id);
                   }}
                   className="bg-gradient-to-r from-rose-500 to-orange-400 hover:from-rose-600 hover:to-orange-500 text-white shadow-sm border-0"
                 >

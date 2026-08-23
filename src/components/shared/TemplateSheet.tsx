@@ -1,8 +1,10 @@
-import { ImageIcon, Layout, PanelsLeftBottom } from "lucide-react";
+import { ImageIcon, Layout, PanelsLeftBottom, X } from "lucide-react";
+import type { ReactElement } from "react";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "@/i18n/compat/client";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -10,7 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet-no-overlay";
 import { cn } from "@/lib/utils";
-import { DEFAULT_TEMPLATES } from "@/config";
+import { DEFAULT_TEMPLATES } from "@/components/templates/registry";
 import { useResumeStore } from "@/store/useResumeStore";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTemplateSnapshots } from "@/hooks/useTemplateSnapshots";
@@ -70,7 +72,7 @@ const TemplatePreview = ({
   );
 };
 
-const TemplateSheet = () => {
+const TemplateSheet = ({ trigger }: { trigger?: ReactElement } = {}) => {
   const t = useTranslations("templates");
   const locale = useLocale();
   const { activeResume, setTemplate } = useResumeStore();
@@ -83,17 +85,28 @@ const TemplateSheet = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <PanelsLeftBottom size={20} />
+        {trigger || <PanelsLeftBottom size={20} />}
       </SheetTrigger>
-      <SheetContent side="left" forceMount className="w-1/2 sm:max-w-1/2">
-        <SheetHeader>
+      <SheetContent
+        side="left"
+        forceMount
+        className="flex w-[calc(100vw-16px)] max-w-none flex-col p-4 sm:w-1/2 sm:max-w-none sm:p-6"
+      >
+        <SheetHeader className="relative pr-10">
           <SheetTitle>{t("switchTemplate")}</SheetTitle>
+          <SheetClose
+            className="absolute right-0 top-0 inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label={t("closeTemplateSelector")}
+            title={t("closeTemplateSelector")}
+          >
+            <X className="h-4 w-4" />
+          </SheetClose>
         </SheetHeader>
         <SheetDescription />
 
-        <div className="mt-4 h-[calc(100vh-8rem)]">
+        <div className="mt-4 min-h-0 flex-1">
           <ScrollArea className="h-full w-full pr-4">
-            <div className="grid grid-cols-4 gap-4 pb-8">
+            <div className="grid grid-cols-2 gap-3 pb-8 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
               {DEFAULT_TEMPLATES.map((template) => (
                 <TemplatePreview
                   key={template.id}
