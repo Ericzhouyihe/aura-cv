@@ -36,7 +36,7 @@ const BaseInfo = ({
       iconName as keyof typeof Icons
     ] as React.ElementType;
     return IconComponent ? (
-      <IconComponent className="mt-[0.16em] h-[14px] w-[14px] shrink-0" />
+      <IconComponent className="h-[14px] w-[14px] shrink-0" />
     ) : null;
   };
 
@@ -170,9 +170,11 @@ const BaseInfo = ({
             return (
               <motion.div
                 key={item.key}
-                className="flex min-w-0 items-start gap-3"
+                className="flex min-w-0 items-center gap-3"
               >
-                <span className="text-neutral-800">{getIcon(item.icon)}</span>
+                <span className="flex shrink-0 items-center justify-center text-neutral-800">
+                  {getIcon(item.icon)}
+                </span>
                 {content}
               </motion.div>
             );

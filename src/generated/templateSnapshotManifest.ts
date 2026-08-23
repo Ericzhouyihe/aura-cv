@@ -12,7 +12,7 @@ export const TEMPLATE_SNAPSHOT_MANIFEST = {
       "creative": "/template-snapshots/zh/creative.png?v=2026-06-01T05%3A05%3A39.212Z",
       "editorial": "/template-snapshots/zh/editorial.png?v=2026-06-01T05%3A05%3A39.212Z",
       "swiss": "/template-snapshots/zh/swiss.png?v=2026-06-01T05%3A05%3A39.212Z",
-      "blue-sidebar": "/template-snapshots/zh/blue-sidebar.png?v=2026-08-23T00%3A00%3A00.000Z"
+      "blue-sidebar": "/template-snapshots/zh/blue-sidebar.png?v=2026-08-23T13%3A44%3A13.914Z"
     },
     "en": {
       "classic": "/template-snapshots/en/classic.png?v=2026-06-01T05%3A05%3A39.212Z",
@@ -24,7 +24,7 @@ export const TEMPLATE_SNAPSHOT_MANIFEST = {
       "creative": "/template-snapshots/en/creative.png?v=2026-06-01T05%3A05%3A39.212Z",
       "editorial": "/template-snapshots/en/editorial.png?v=2026-06-01T05%3A05%3A39.212Z",
       "swiss": "/template-snapshots/en/swiss.png?v=2026-06-01T05%3A05%3A39.212Z",
-      "blue-sidebar": "/template-snapshots/en/blue-sidebar.png?v=2026-08-23T00%3A00%3A00.000Z"
+      "blue-sidebar": "/template-snapshots/en/blue-sidebar.png?v=2026-08-23T13%3A44%3A13.914Z"
     }
   }
 } as const;
