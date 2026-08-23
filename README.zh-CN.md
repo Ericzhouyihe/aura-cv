@@ -88,8 +88,6 @@ docker compose up -d
 - 自动构建应用镜像
 - 在后台启动容器
 
-
-
 ## 📝 开源协议与商业授权
 
 本项目源代码基于 **Apache 2.0** 协议开源，但附带**严格的商业使用限制**：
@@ -109,49 +107,3 @@ docker compose up -d
 - [x] 自动一页纸
 - [ ] 导入 PDF, Markdown 等
 - [ ] 在线简历托管
-
-## 📈 Star History
-
-<a href="https://star-history.com/#JOYCEQL/magic-resume&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=JOYCEQL/magic-resume&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=JOYCEQL/magic-resume&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=JOYCEQL/magic-resume&type=Date" />
- </picture>
-</a>
-
-## 📞 联系方式
-
-可以通过以下方式关注最新动态:
-
-- 作者：SiYue
-- X: @GuangzhouY81070
-- Discord: 欢迎加入群组 https://discord.gg/9mWgZrW3VN
-- 邮箱：18806723365@163.com
-  
-
-- 项目主页：https://github.com/JOYCEQL/magic-resume
-
-## 🌟 支持项目
-
-<img src="https://github.com/JOYCEQL/picx-images-hosting/raw/master/pintu-fulicat.com-1741081632544.26lmg2uc2m.webp" width="320"  alt="图片描述">
-
-## ❤️ 赞助名单
-
-<div align="center">
-  <h3>Sponsors</h3>
-  <p>如果您赞助了本项目，但没展示在这里，请联系我。</p>
-  <p>
-    <a href="https://github.com/yj147">
-      <img src="https://github.com/yj147.png?size=40" width="40" height="40" alt="@yj147" />
-    </a>
-    <a href="https://github.com/someone1128">
-      <img src="https://github.com/someone1128.png?size=40" width="40" height="40" alt="@someone1128" />
-    </a>
-    <!-- 在这里继续添加赞助者：
-    <a href="https://github.com/<username>">
-      <img src="https://github.com/<username>.png?size=40" width="40" height="40" alt="@<username>" />
-    </a>
-    -->
-  </p>
-</div>
