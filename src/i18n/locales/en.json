@@ -254,6 +254,10 @@
       "swiss": {
         "name": "Swiss Aesthetic",
         "description": "Artistic Bauhaus layout with strong typographic hierarchy and geometric accents, showing modern minimalism"
+      },
+      "blue-sidebar": {
+        "name": "Blue Sidebar",
+        "description": "A pale blue sidebar and icon-led sections for information-rich professional resumes"
       }
     }
   },

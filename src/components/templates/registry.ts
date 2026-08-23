@@ -11,6 +11,7 @@ import { elegantConfig } from "./elegant/config";
 import { creativeConfig } from "./creative/config";
 import { editorialConfig } from "./editorial/config";
 import { swissConfig } from "./swiss/config";
+import { blueSidebarConfig } from "./blue-sidebar/config";
 
 // Import components
 import ClassicTemplate from "./classic";
@@ -22,6 +23,7 @@ import ElegantTemplate from "./elegant";
 import CreativeTemplate from "./creative";
 import EditorialTemplate from "./editorial";
 import SwissTemplate from "./swiss";
+import BlueSidebarTemplate from "./blue-sidebar";
 
 export interface TemplateRegistryEntry {
   config: ResumeTemplate;
@@ -43,6 +45,7 @@ export const TEMPLATE_REGISTRY: TemplateRegistryEntry[] = [
   { config: creativeConfig, Component: CreativeTemplate },
   { config: editorialConfig, Component: EditorialTemplate },
   { config: swissConfig, Component: SwissTemplate },
+  { config: blueSidebarConfig, Component: BlueSidebarTemplate },
 ];
 
 /** All template configs — drop-in replacement for the old DEFAULT_TEMPLATES */
