@@ -4,12 +4,10 @@ import { ModuleNavigator } from "@/components/workbench/ModuleNavigator";
 import { ModuleTabStrip } from "@/components/workbench/ModuleTabStrip";
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useTranslations } from "@/i18n/compat/client";
 
 export function ModuleTabs() {
@@ -21,29 +19,37 @@ export function ModuleTabs() {
       <div className="flex h-full min-w-0 overflow-hidden rounded-lg border border-border bg-background">
         <ModuleTabStrip />
 
-        <Button
-          type="button"
-          variant="ghost"
-          className="h-full min-w-[88px] shrink-0 flex-col gap-1 rounded-none border-l border-border px-3 py-2 text-xs font-medium"
-          aria-label={t("manageModulesAria")}
-          onClick={() => setModulesOpen(true)}
-        >
-          <LayoutList className="h-[18px] w-[18px]" />
-          <span>{t("manageModules")}</span>
-        </Button>
-      </div>
+        <Popover open={modulesOpen} onOpenChange={setModulesOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              className="h-full min-w-[88px] shrink-0 flex-col gap-1 rounded-none border-l border-border px-3 py-2 text-xs font-medium"
+              aria-label={t("manageModulesAria")}
+            >
+              <LayoutList className="h-[18px] w-[18px]" />
+              <span>{t("manageModules")}</span>
+            </Button>
+          </PopoverTrigger>
 
-      <Sheet open={modulesOpen} onOpenChange={setModulesOpen}>
-        <SheetContent className="flex w-[min(420px,calc(100vw-16px))] flex-col gap-0 p-0 sm:max-w-[420px]">
-          <SheetHeader className="shrink-0 border-b border-border px-4 py-4 pr-12 text-left">
-            <SheetTitle>{t("manageModules")}</SheetTitle>
-            <SheetDescription>{t("modulesDescription")}</SheetDescription>
-          </SheetHeader>
-          <div className="min-h-0 flex-1 overflow-y-auto p-4">
-            <ModuleNavigator onSectionCreated={() => setModulesOpen(false)} />
-          </div>
-        </SheetContent>
-      </Sheet>
+          <PopoverContent
+            side="bottom"
+            align="end"
+            sideOffset={8}
+            className="flex max-h-[min(680px,calc(100vh-96px))] w-[min(420px,calc(100vw-24px))] flex-col gap-0 overflow-hidden p-0"
+          >
+            <div className="shrink-0 border-b border-border px-4 py-4 text-left">
+              <h2 className="text-base font-semibold">{t("manageModules")}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("modulesDescription")}
+              </p>
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto p-4">
+              <ModuleNavigator onSectionCreated={() => setModulesOpen(false)} />
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
   );
 }

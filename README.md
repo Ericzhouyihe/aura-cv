@@ -1,18 +1,18 @@
 <div align="center">
 
-# ✨ Magic Resume ✨
+# ✨ Aura CV ✨
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![TanStack Start](https://img.shields.io/badge/TanStack_Start-latest-black)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.0-purple)
 
-<a href="https://trendshift.io/repositories/13077" target="_blank"><img src="https://trendshift.io/api/badge/repositories/13077" alt="Magic Resume | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/13077" target="_blank"><img src="https://trendshift.io/api/badge/repositories/13077" alt="Aura CV | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 [简体中文](./README.zh-CN.md) | English
 
 </div>
 
-Magic Resume is a modern online resume editor that makes creating professional resumes simple and enjoyable. Built with TanStack Start and Framer Motion, it supports real-time preview and custom themes.
+Aura CV is a modern online resume editor that makes creating professional resumes simple and enjoyable. Built with TanStack Start and Framer Motion, it supports real-time preview and custom themes.
 
 ## 📸 Screenshots
 

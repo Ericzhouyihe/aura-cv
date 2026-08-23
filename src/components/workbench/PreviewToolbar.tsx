@@ -171,7 +171,10 @@ export function PreviewToolbar({
         )}
       >
         <div
-          className="h-full overflow-x-auto overflow-y-hidden rounded-lg border border-border bg-background"
+          className={cn(
+            "h-full overflow-x-auto overflow-y-hidden rounded-lg border border-border bg-background",
+            mobile && "scrollbar-subtle-x"
+          )}
           style={
             !mobile && geometry
               ? {

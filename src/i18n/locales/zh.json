@@ -843,7 +843,7 @@
   },
   "faqDialog": {
     "title": "常见问题 (FAQ)",
-    "description": "关于 Magic Resume 工作台的一些常用技巧和解答。",
+    "description": "关于 Aura CV 工作台的一些常用技巧和解答。",
     "items": {
       "browser-compatibility": {
         "question": "推荐使用什么浏览器？",

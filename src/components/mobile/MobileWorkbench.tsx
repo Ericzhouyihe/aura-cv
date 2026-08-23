@@ -34,7 +34,7 @@ export function MobileWorkbench() {
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
       <div className="shrink-0 border-b border-border bg-background py-2">
-        <div className="w-full min-w-0 overflow-x-auto px-2">
+        <div className="scrollbar-hide w-full min-w-0 overflow-x-auto px-2">
           <div className="flex w-max min-w-full items-center gap-2">
             <div
               className="grid min-w-[154px] flex-1 grid-cols-2 rounded-md bg-muted p-0.5"

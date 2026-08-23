@@ -90,6 +90,33 @@
     background: rgba(193, 193, 193, 0.8);
   }
 
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-subtle-x {
+    scrollbar-color: hsl(var(--muted-foreground) / 0.28) transparent;
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-subtle-x::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .scrollbar-subtle-x::-webkit-scrollbar-thumb:horizontal {
+    background: hsl(var(--muted-foreground) / 0.28);
+    border-radius: 9999px;
+  }
+
+  .scrollbar-subtle-x::-webkit-scrollbar-thumb:horizontal:hover {
+    background: hsl(var(--muted-foreground) / 0.45);
+  }
+
   .dark {
     --background: 60 5% 10%; /* Dark Charcoal */
     --workbench-canvas: 0 0% 13.333%; /* #222222 */
