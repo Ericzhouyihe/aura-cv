@@ -47,7 +47,7 @@ Aura CV is a modern online resume editor that makes creating professional resume
 1. Clone the project
 
 ```bash
-git clone git@github.com:JOYCEQL/magic-resume.git
+git clone git@github.com:Ericzhouyihe/aura-cv.git
 cd aura-cv
 ```
 

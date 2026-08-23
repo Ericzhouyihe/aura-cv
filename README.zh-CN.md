@@ -47,7 +47,7 @@ Aura CV 是一个现代化的在线简历编辑器，让创建专业简历变得
 1. 克隆项目
 
 ```bash
-git clone git@github.com:JOYCEQL/magic-resume.git
+git clone git@github.com:Ericzhouyihe/aura-cv.git
 cd aura-cv
 ```
 
