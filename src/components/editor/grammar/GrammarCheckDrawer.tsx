@@ -116,8 +116,11 @@ export function GrammarCheckDrawer() {
 
   return (
     <Sheet open={isOpen} onOpenChange={handleOpenChange} modal={false}>
-      <SheetContent side="left" className="w-[400px] sm:w-[450px] p-0 flex flex-col gap-0 border-r shadow-lg bg-muted/30 backdrop-blur-xl">
-        <div className="p-6 pb-4 bg-background/80 backdrop-blur-sm sticky top-0 z-10 border-b">
+      <SheetContent
+        side="left"
+        className="flex h-[calc(100dvh-64px)] w-full max-w-[450px] flex-col gap-0 overflow-hidden border-r bg-muted/30 p-0 shadow-lg backdrop-blur-xl"
+      >
+        <div className="sticky top-0 z-10 shrink-0 border-b bg-background/80 p-4 pb-3 backdrop-blur-sm sm:p-6 sm:pb-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <div className="p-2 bg-primary/10 rounded-lg">
@@ -144,7 +147,7 @@ export function GrammarCheckDrawer() {
           </div>
         </div>
 
-        <ScrollArea className="flex-1 px-6 py-6 h-full">
+        <ScrollArea className="min-h-0 flex-1 px-4 py-4 sm:px-6 sm:py-6">
             <div className="space-y-6 pb-20">
               <AnimatePresence mode="popLayout">
                 {errors.map((error, index) => (

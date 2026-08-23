@@ -11,7 +11,7 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "deleteSuccess": "Deleted successfully",
-    "deleteModuleConfirm": "Are you sure you want to delete this module? This action cannot be undone.",
+    "deleteModuleConfirm": "Are you sure you want to delete this module? You can restore it with Undo.",
     "configured": "Configured",
     "notConfigured": "Not configured"
   },
@@ -334,6 +334,37 @@
     }
   },
   "workbench": {
+    "resizePanels": "Resize the editor and preview panels",
+    "toolbar": {
+      "selectFont": "Select font",
+      "selectFontSize": "Select font size",
+      "selectThemeColor": "Select theme color",
+      "themeColor": "Theme color",
+      "openStyleSettings": "Open style settings",
+      "styleSettings": "Style settings",
+      "styleSettingsDescription": "Adjust the resume font, colors, and page spacing.",
+      "increase": "Increase",
+      "decrease": "Decrease"
+    },
+    "mobile": {
+      "viewLabel": "Workbench view",
+      "content": "Content",
+      "contentAria": "Switch to content editing",
+      "preview": "Preview",
+      "previewAria": "Switch to resume preview",
+      "manageModules": "Modules",
+      "manageModulesAria": "Manage resume modules",
+      "modulesDescription": "Add, reorder, or hide resume modules.",
+      "editSection": "Edit {title}"
+    },
+    "desktop": {
+      "manageModules": "Modules",
+      "manageModulesAria": "Manage resume modules",
+      "modulesDescription": "Add, reorder, or hide resume modules.",
+      "editSection": "Edit {title}",
+      "dragSection": "Drag to reorder {title}",
+      "deleteSection": "Delete {title}"
+    },
     "sidePanel": {
       "layout": {
         "title": "Layout",
@@ -425,11 +456,16 @@
         "website": "Website",
         "location": "Location",
         "birthDate": "Birth Date",
+        "age": "Age",
         "employementStatus": "Employ"
       },
       "fieldVisibility": {
         "show": "Show",
         "hide": "Hide"
+      },
+      "fieldStyle": {
+        "moveUp": "Move Up",
+        "moveDown": "Move Down"
       },
       "githubContributions": "GitHub Contributions"
     },
@@ -770,7 +806,8 @@
     }
   },
   "templates": {
-    "switchTemplate": "Switch Template"
+    "switchTemplate": "Switch Template",
+    "closeTemplateSelector": "Close template selector"
   },
   "themeModal": {
     "delete": {

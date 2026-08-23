@@ -41,13 +41,18 @@ const ExportCard = ({
   hoverBorderClass?: string,
 }) => {
   return (
-    <div
-      onClick={() => {
-        if (!isLoading) onClick();
-      }}
+    <button
+      type="button"
+      disabled={isLoading}
+      onClick={onClick}
       className={cn(
-        "group relative flex flex-col justify-center overflow-hidden p-6 pl-[136px] min-h-[130px] rounded-3xl border border-border/50 bg-card text-card-foreground shadow-sm transition-all duration-500",
-        isLoading ? "opacity-70 cursor-not-allowed" : cn("cursor-pointer hover:shadow-2xl active:scale-[0.98] hover:-translate-y-1 hover:bg-muted/10", hoverBorderClass)
+        "group relative flex min-h-[104px] w-full flex-col justify-center overflow-hidden rounded-lg border border-border/50 bg-card p-4 pl-[104px] text-left text-card-foreground shadow-sm transition-all duration-500 sm:min-h-[130px] sm:rounded-3xl sm:p-6 sm:pl-[136px]",
+        isLoading
+          ? "cursor-not-allowed opacity-70"
+          : cn(
+              "cursor-pointer hover:-translate-y-1 hover:bg-muted/10 hover:shadow-2xl active:scale-[0.98]",
+              hoverBorderClass
+            )
       )}
     >
       {/* 顶部内发光高光，增加卡片立体感 */}
@@ -62,7 +67,7 @@ const ExportCard = ({
 
       {/* 调整后的图标层：完全收入卡片内部，尺寸克制 */}
       <div className={cn(
-        "absolute left-6 top-1/2 -translate-y-1/2 w-24 h-24 transition-transform duration-500 will-change-transform drop-shadow-xl pointer-events-none",
+        "absolute left-4 top-1/2 h-20 w-20 -translate-y-1/2 transition-transform duration-500 will-change-transform drop-shadow-xl pointer-events-none sm:left-6 sm:h-24 sm:w-24",
         isLoading ? "-rotate-6 scale-[1.05] opacity-80" : "-rotate-6 group-hover:scale-[1.1] group-hover:-rotate-3"
       )}>
         <Icon className="w-full h-full object-contain" isLoading={isLoading} />
@@ -75,7 +80,7 @@ const ExportCard = ({
           {description}
         </p>
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -128,6 +133,7 @@ const PdfExport = ({ children }: { children?: React.ReactNode }) => {
           title: tBasicField("title"),
           employementStatus: tBasicField("employementStatus"),
           birthDate: tBasicField("birthDate"),
+          age: tBasicField("age"),
           email: tBasicField("email"),
           phone: tBasicField("phone"),
           location: tBasicField("location")
@@ -194,14 +200,14 @@ const PdfExport = ({ children }: { children?: React.ReactNode }) => {
         )}
       </DialogTrigger>
 
-      <DialogContent className="max-w-4xl gap-0 p-0 sm:rounded-[2rem] border border-border/60 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] bg-background overflow-hidden">
+      <DialogContent className="max-h-[calc(100dvh-16px)] w-[calc(100vw-16px)] max-w-4xl gap-0 overflow-y-auto border border-border/60 bg-background p-0 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] sm:rounded-[2rem]">
         {/* 头部区域：带精美网格和高光 */}
-        <div className="relative p-8 pb-6 border-b border-border/40 bg-muted/10">
+        <div className="relative border-b border-border/40 bg-muted/10 p-4 pb-3 sm:p-8 sm:pb-6">
           {/* SaaS 网格底纹背景 */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
           <DialogHeader className="relative gap-2">
-            <DialogTitle className="text-2xl font-bold tracking-tight">
+            <DialogTitle className="text-xl font-bold tracking-tight sm:text-2xl">
               {t("modal.title")}
             </DialogTitle>
             <DialogDescription className="text-[15px] text-muted-foreground/80 mt-1">
@@ -211,8 +217,8 @@ const PdfExport = ({ children }: { children?: React.ReactNode }) => {
         </div>
 
         {/* 卡片展示区域 */}
-        <div className="p-8 bg-background">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 relative">
+        <div className="bg-background p-4 sm:p-8">
+          <div className="relative grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5">
             <ExportCard
               icon={PdfGlassIcon}
               title={t("button.exportPdf")}
@@ -252,7 +258,7 @@ const PdfExport = ({ children }: { children?: React.ReactNode }) => {
           </div>
 
           {/* 隐私保护横幅 */}
-          <div className="mt-6 flex items-center gap-2 p-3 sm:px-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+          <div className="mt-4 flex items-start gap-2 rounded-lg border border-emerald-100 bg-emerald-50 p-3 text-emerald-600 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400 sm:mt-6 sm:items-center sm:rounded-xl sm:px-4">
             <ShieldCheck className="w-4 h-4 shrink-0" />
             <p className="text-[13px] font-medium">
               {t("modal.privacyNotice")}

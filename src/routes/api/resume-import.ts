@@ -94,7 +94,8 @@ JSON 结构：
     "phone": "",
     "location": "",
     "employementStatus": "",
-    "birthDate": ""
+    "birthDate": "",
+    "age": ""
   },
   "education": [
     {

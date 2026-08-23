@@ -7,8 +7,7 @@ interface LayoutPanelProps {
   activeSection: string;
   setActiveSection: (id: string) => void;
   toggleSectionVisibility: (id: string) => void;
-  updateMenuSections: (sections: MenuSection[]) => void;
-  removeCustomData: (sectionId: string) => void;
+  deleteSection: (sectionId: string) => void;
   reorderSections: (sections: MenuSection[]) => void;
 }
 
@@ -17,12 +16,25 @@ const LayoutSetting = ({
   activeSection,
   setActiveSection,
   toggleSectionVisibility,
-  updateMenuSections,
-  removeCustomData,
+  deleteSection,
   reorderSections,
 }: LayoutPanelProps) => {
   const basicSection = menuSections.find((item) => item.id === "basic");
   const draggableSections = menuSections.filter((item) => item.id !== "basic");
+
+  const moveSection = (index: number, offset: -1 | 1) => {
+    const targetIndex = index + offset;
+    if (targetIndex < 0 || targetIndex >= draggableSections.length) {
+      return;
+    }
+
+    const nextSections = [...draggableSections];
+    [nextSections[index], nextSections[targetIndex]] = [
+      nextSections[targetIndex],
+      nextSections[index],
+    ];
+    reorderSections(nextSections);
+  };
 
   return (
     <div className="space-y-4  rounded-lg dark:bg-neutral-900/30">
@@ -33,9 +45,7 @@ const LayoutSetting = ({
           activeSection={activeSection}
           setActiveSection={setActiveSection}
           toggleSectionVisibility={toggleSectionVisibility}
-          updateMenuSections={updateMenuSections}
-          removeCustomData={removeCustomData}
-          menuSections={menuSections}
+          deleteSection={deleteSection}
         />
       )}
 
@@ -51,16 +61,18 @@ const LayoutSetting = ({
         }}
         className="space-y-2"
       >
-        {draggableSections.map((item) => (
+        {draggableSections.map((item, index) => (
           <LayoutItem
             key={item.id}
             item={item}
             activeSection={activeSection}
             setActiveSection={setActiveSection}
             toggleSectionVisibility={toggleSectionVisibility}
-            updateMenuSections={updateMenuSections}
-            removeCustomData={removeCustomData}
-            menuSections={menuSections}
+            deleteSection={deleteSection}
+            onMoveUp={() => moveSection(index, -1)}
+            onMoveDown={() => moveSection(index, 1)}
+            canMoveUp={index > 0}
+            canMoveDown={index < draggableSections.length - 1}
           />
         ))}
       </Reorder.Group>

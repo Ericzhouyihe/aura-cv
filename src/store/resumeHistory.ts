@@ -103,6 +103,35 @@ const getRestoredActiveSection = (
     snapshot.menuSections.map((section) => section.id)
   );
 
+  const currentSectionIds = new Set(
+    currentResume.menuSections.map((section) => section.id)
+  );
+  const restoredDeletedSection =
+    sectionIds.has(snapshot.activeSection) &&
+    !currentSectionIds.has(snapshot.activeSection);
+  const snapshotActiveSection = snapshot.menuSections.find(
+    (section) => section.id === snapshot.activeSection
+  );
+  const currentSnapshotSection = currentResume.menuSections.find(
+    (section) => section.id === snapshot.activeSection
+  );
+  const restoredHiddenSection =
+    snapshotActiveSection?.enabled === true &&
+    currentSnapshotSection?.enabled === false;
+  const snapshotCurrentSection = snapshot.menuSections.find(
+    (section) => section.id === currentResume.activeSection
+  );
+  const currentSectionHiddenInSnapshot =
+    snapshotCurrentSection?.enabled === false;
+
+  if (
+    restoredDeletedSection ||
+    restoredHiddenSection ||
+    currentSectionHiddenInSnapshot
+  ) {
+    return snapshot.activeSection;
+  }
+
   if (sectionIds.has(currentResume.activeSection)) {
     return currentResume.activeSection;
   }

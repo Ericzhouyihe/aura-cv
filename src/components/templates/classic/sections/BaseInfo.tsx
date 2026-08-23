@@ -73,7 +73,7 @@ const BaseInfo = ({ basic = {} as BasicInfo, globalSettings, template }: BaseInf
                     {PhotoComponent}
                     <div className={cn("flex flex-col", styles.nameTitle)}>
                         {nameField.visible !== false && basic[nameField.key] && (
-                            <motion.h1 layout="position" className="font-bold whitespace-normal break-normal [overflow-wrap:normal]" style={{ fontSize: "30px" }}>{basic[nameField.key] as string}</motion.h1>
+                            <motion.h1 layout="position" className="whitespace-normal break-normal [overflow-wrap:normal]" style={{ fontSize: "30px" }}>{basic[nameField.key] as string}</motion.h1>
                         )}
                         {titleField.visible !== false && basic[titleField.key] && (
                             <motion.h2 layout="position" className="whitespace-normal break-normal [overflow-wrap:normal]" style={{ fontSize: "18px" }}>{basic[titleField.key] as string}</motion.h2>
@@ -89,7 +89,7 @@ const BaseInfo = ({ basic = {} as BasicInfo, globalSettings, template }: BaseInf
                             {useIconMode ? (
                                 <div className="flex min-w-0 items-start gap-1">
                                     {getIcon(item.icon)}
-                                    {item.key === "email" ? <a href={`mailto:${item.value}`} className="min-w-0 underline [overflow-wrap:anywhere]">{item.value}</a> : customFieldHref ? <a href={customFieldHref} target="_blank" rel="noopener noreferrer" className="min-w-0 underline [overflow-wrap:anywhere]">{item.value}</a> : <span className="min-w-0 [overflow-wrap:anywhere]">{item.value}</span>}
+                                    {item.key === "email" ? <span className="min-w-0 [overflow-wrap:anywhere]">{item.value}</span> : customFieldHref ? <a href={customFieldHref} target="_blank" rel="noopener noreferrer" className="min-w-0 underline [overflow-wrap:anywhere]">{item.value}</a> : <span className="min-w-0 [overflow-wrap:anywhere]">{item.value}</span>}
                                 </div>
                             ) : (
                                 <div className="flex min-w-0 items-start gap-2">

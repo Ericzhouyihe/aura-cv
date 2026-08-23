@@ -20,6 +20,7 @@
 @layer base {
   :root {
     --background: 48 20% 97%; /* #F9F9F7 */
+    --workbench-canvas: 255 44.444% 96.471%; /* #F4F2FA */
     --foreground: 60 5% 10%; /* #1B1B18 */
     --card: 48 20% 97%;
     --card-foreground: 60 5% 10%;
@@ -91,6 +92,7 @@
 
   .dark {
     --background: 60 5% 10%; /* Dark Charcoal */
+    --workbench-canvas: 0 0% 13.333%; /* #222222 */
     --foreground: 48 20% 97%; /* Off White text */
     --card: 60 5% 12%;
     --card-foreground: 48 20% 97%;

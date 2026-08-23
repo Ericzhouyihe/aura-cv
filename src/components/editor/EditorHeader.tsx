@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "@/i18n/compat/client";
 import {
   AlertCircle,
+  Download,
   ShieldCheck,
   ShieldAlert,
   Edit2,
@@ -25,11 +26,7 @@ import { Button } from "@/components/ui/button";
 import { GrammarCheckDrawer } from "./grammar/GrammarCheckDrawer";
 import { getFileHandle, getConfig } from "@/utils/fileSystem";
 
-interface EditorHeaderProps {
-  isMobile?: boolean;
-}
-
-export function EditorHeader({ isMobile }: EditorHeaderProps) {
+export function EditorHeader() {
   const {
     activeResume,
     updateResumeTitle,
@@ -41,11 +38,17 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
   const { errors } = useGrammarCheck();
   const router = useRouter();
   const t = useTranslations();
+  const exportLabel = t("pdfExport.button.export");
   const undoLabel = t("richEditor.undo");
   const redoLabel = t("richEditor.redo");
 
   const [backupConfigured, setBackupConfigured] = useState<boolean | null>(null);
   const [backupPath, setBackupPath] = useState<string>("");
+  const [titleDraft, setTitleDraft] = useState(activeResume?.title || "");
+
+  useEffect(() => {
+    setTitleDraft(activeResume?.title || "");
+  }, [activeResume?.id, activeResume?.title]);
 
   useEffect(() => {
     const checkBackup = async () => {
@@ -100,13 +103,9 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
   }, [undo, redo]);
 
   return (
-    <motion.header
-      className={`h-16 border-b sticky top-0 z-10`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-    >
-      <div className="flex items-center justify-between px-6 h-full pr-2">
-        <div className="flex items-center space-x-4 scrollbar-hide">
+    <motion.header className="sticky top-0 z-10 h-16 border-b bg-background">
+      <div className="flex h-full items-center justify-between px-3 sm:px-6 sm:pr-2">
+        <div className="flex min-w-0 items-center space-x-4 scrollbar-hide">
           <motion.div
             className="flex items-center space-x-2 shrink-0 cursor-pointer"
             whileHover={{ scale: 1.02 }}
@@ -115,17 +114,21 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
               router.push("/app/dashboard");
             }}
           >
-            <span className="text-lg font-semibold">{t("common.title")}</span>
+            <span className="truncate text-base font-semibold sm:text-lg">{t("common.title")}</span>
           </motion.div>
 
           <span className="text-muted-foreground/30 hidden md:inline-block font-light">/</span>
 
           <div className="relative hidden md:flex items-center group">
             <Input
-              key={activeResume?.id || "resume-title"}
-              defaultValue={activeResume?.title || ""}
-              onBlur={(e) => {
-                updateResumeTitle(e.target.value || "未命名简历");
+              value={titleDraft}
+              onChange={(event) => setTitleDraft(event.target.value)}
+              onBlur={() => {
+                const nextTitle = titleDraft || "未命名简历";
+                setTitleDraft(nextTitle);
+                if (nextTitle !== activeResume?.title) {
+                  updateResumeTitle(nextTitle);
+                }
               }}
               className="w-56 text-sm h-8 bg-muted/30 border-transparent hover:bg-muted/60 focus:bg-background transition-colors px-2.5 py-1 pr-8 shadow-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:border-border rounded-md font-medium text-foreground/90 hover:text-foreground"
               placeholder="简历名称"
@@ -190,8 +193,8 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
           )}
         </div>
 
-        <div className="flex items-center space-x-3">
-          <div className="hidden md:flex items-center gap-1">
+        <div className="flex shrink-0 items-center space-x-1 sm:space-x-3">
+          <div className="flex items-center gap-1">
             <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -234,15 +237,24 @@ export function EditorHeader({ isMobile }: EditorHeaderProps) {
                 onClick={() => document.dispatchEvent(new CustomEvent('open-grammar-drawer'))}
              >
                   <AlertCircle className="w-4 h-4 text-red-500" />
-                  <span className="text-sm text-red-500">
+                  <span className="hidden text-sm text-red-500 sm:inline">
                     {t("grammarCheck.found_issues", { count: errors.length })}
                   </span>
              </div>
           )}
 
-          <ThemeToggle></ThemeToggle>
-          <div className="md:flex items-center ">
-            <PdfExport />
+          <ThemeToggle />
+          <div className="flex items-center">
+            <PdfExport>
+              <Button
+                type="button"
+                className="h-8 gap-1.5 rounded-md bg-[#5a4034] px-2.5 text-xs font-medium text-white hover:bg-[#493329] sm:h-9 sm:gap-2 sm:px-4 sm:text-sm"
+                aria-label={exportLabel}
+              >
+                <Download className="h-4 w-4 shrink-0" />
+                <span>{exportLabel}</span>
+              </Button>
+            </PdfExport>
           </div>
         </div>
       </div>
