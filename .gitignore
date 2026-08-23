@@ -37,8 +37,9 @@ yarn-error.log*
 *.tsbuildinfo
 src/routeTree.gen.ts
 
-# idea
+# ide
 .idea
+.zcode
 
 .history
 .agent
