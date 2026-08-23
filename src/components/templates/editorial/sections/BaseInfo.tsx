@@ -124,12 +124,7 @@ const BaseInfo: React.FC<BaseInfoProps> = ({ basic, globalSettings }) => {
                     </span>
                   )}
                   <div className="min-w-0">
-                    {item.key === "email" ? (
-                      <a href={`mailto:${item.value}`} className="block min-w-0 transition-colors [overflow-wrap:anywhere] hover:text-black">
-                        {globalSettings?.useIconMode ? "" : `${t(`basicPanel.basicFields.${item.key}`)}: `}
-                        {item.value}
-                      </a>
-                    ) : item.key === "website" || item.key === "github" ? (
+                    {item.key === "website" || item.key === "github" ? (
                       <a href={item.value.startsWith("http") ? item.value : `https://${item.value}`} className="block min-w-0 transition-colors [overflow-wrap:anywhere] hover:text-black">
                         {globalSettings?.useIconMode ? "" : `${item.label}: `}
                         {item.value.replace(/^https?:\/\//, "")}

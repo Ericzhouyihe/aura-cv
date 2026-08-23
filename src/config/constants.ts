@@ -12,10 +12,22 @@ export const DEFAULT_FIELD_ORDER: BasicFieldType[] = [
     visible: true
   },
   { id: "4", key: "birthDate", label: "生日", type: "date", visible: true },
+  { id: "8", key: "age", label: "年龄", type: "text", visible: true },
   { id: "5", key: "email", label: "邮箱", type: "text", visible: true },
   { id: "6", key: "phone", label: "电话", type: "text", visible: true },
   { id: "7", key: "location", label: "所在地", type: "text", visible: true }
 ];
+
+export const withDefaultBasicFields = (
+  fieldOrder: BasicFieldType[] | undefined
+): BasicFieldType[] => {
+  const current = fieldOrder ?? [];
+  const existingKeys = new Set(current.map((field) => field.key));
+  const missing = DEFAULT_FIELD_ORDER.filter(
+    (def) => !existingKeys.has(def.key)
+  );
+  return missing.length ? [...current, ...missing] : current;
+};
 
 export const GITHUB_REPO_URL = "https://github.com/JOYCEQL/magic-resume";
 

@@ -86,6 +86,7 @@ export const createResumeFromAIResult = (result: any, fileName: string) => {
       location: toString(result?.basic?.location),
       employementStatus: toString(result?.basic?.employementStatus),
       birthDate: toString(result?.basic?.birthDate),
+      age: toString(result?.basic?.age),
       customFields: [],
       photo: "",
       githubKey: "",

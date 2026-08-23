@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { PlusCircle, GripVertical, Trash2, Eye, EyeOff } from "lucide-react";
+import { PlusCircle, GripVertical, Trash2, Eye, EyeOff, ChevronUp, ChevronDown } from "lucide-react";
 import { Reorder, AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "@/i18n/compat/client";
 import { Button } from "@/components/ui/button";
@@ -176,7 +176,6 @@ const BasicPanel: React.FC = () => {
       visible: field.visible ?? true,
     }));
   });
-  const basicFieldsRef = useRef(basicFields);
   const customFieldsRef = useRef(customFields);
   const t = useTranslations("workbench.basicPanel");
 
@@ -192,30 +191,34 @@ const BasicPanel: React.FC = () => {
       visible: field.visible ?? true,
     }));
 
-    basicFieldsRef.current = nextBasicFields;
     customFieldsRef.current = nextCustomFields;
     setBasicFields(nextBasicFields);
     setCustomFields(nextCustomFields);
   }, [activeResume?.id, basic?.fieldOrder, basic?.customFields]);
 
   useEffect(() => {
-    basicFieldsRef.current = basicFields;
-  }, [basicFields]);
-
-  useEffect(() => {
     customFieldsRef.current = customFields;
   }, [customFields]);
 
-  const handleBasicReorder = (newOrder: BasicFieldType[]) => {
-    basicFieldsRef.current = newOrder;
-    setBasicFields(newOrder);
-  };
+  const moveField = (fieldId: string, direction: "up" | "down") => {
+    const index = basicFields.findIndex((field) => field.id === fieldId);
+    if (index < 0) return;
 
-  const commitBasicReorder = useCallback(() => {
+    // name(0) 与 title(1) 固定，不可移动
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 2 || targetIndex >= basicFields.length) return;
+
+    const newFields = [...basicFields];
+    [newFields[index], newFields[targetIndex]] = [
+      newFields[targetIndex],
+      newFields[index],
+    ];
+    setBasicFields(newFields);
     updateBasicInfo({
-      fieldOrder: basicFieldsRef.current,
+      ...basic,
+      fieldOrder: newFields,
     });
-  }, [updateBasicInfo]);
+  };
 
   const toggleFieldVisibility = (fieldId: string, isVisible: boolean) => {
     const newFields = basicFields.map((field) =>
@@ -225,23 +228,6 @@ const BasicPanel: React.FC = () => {
     updateBasicInfo({
       ...basic,
       fieldOrder: newFields,
-    });
-  };
-
-  const deleteBasicField = (fieldId: string) => {
-    const fieldToDelete = basicFields.find((field) => field.id === fieldId);
-    if (
-      fieldToDelete &&
-      (fieldToDelete.key === "name" || fieldToDelete.key === "title")
-    ) {
-      return;
-    }
-
-    const updatedFields = basicFields.filter((field) => field.id !== fieldId);
-    setBasicFields(updatedFields);
-    updateBasicInfo({
-      ...basic,
-      fieldOrder: updatedFields,
     });
   };
 
@@ -295,108 +281,111 @@ const BasicPanel: React.FC = () => {
 
   const renderBasicField = (field: BasicFieldType) => {
     const selectedIcon = basic?.icons?.[field.key] || "User";
+    const isProtected = field.key === "name" || field.key === "title";
+    const index = basicFields.findIndex((f) => f.id === field.id);
+    const canMoveUp = index > 2;
+    const canMoveDown = index >= 2 && index < basicFields.length - 1;
 
     return (
-      <Reorder.Item
-        value={field}
-        id={field.id}
+      <motion.div
+        {...itemAnimations}
+        layout
         key={field.id}
-        className="group touch-none list-none"
-        dragListener={field.key !== "name" && field.key !== "title"}
-        onDragEnd={commitBasicReorder}
+        className={cn(
+          "flex flex-col gap-2 p-3",
+          "bg-card rounded-lg",
+          "border border-border",
+          "transition-all duration-200",
+          !field.visible && "opacity-75"
+        )}
       >
-        <motion.div
-          {...itemAnimations}
-          className={cn(
-            "flex flex-wrap items-center gap-2 p-3 sm:flex-nowrap sm:gap-4 sm:p-4 sm:pr-3",
-            "bg-card",
-            "rounded-lg ",
-            "transition-all duration-200",
-            !field.visible && "opacity-75"
-          )}
-        >
-          {field.key !== "name" && field.key !== "title" && (
-            <div className="shrink-0">
-              <GripVertical
-                className={cn(
-                  "w-5 h-5 cursor-grab active:cursor-grabbing",
-                  "text-muted-foreground",
-                  "hover:text-foreground",
-                  "transition-colors duration-200"
-                )}
-              />
-            </div>
-          )}
-
-          <div className="order-1 flex min-w-0 flex-1 flex-wrap items-center sm:order-none sm:flex-nowrap">
-            {field.key !== "name" && field.key !== "title" && (
-              <IconSelector
-                value={selectedIcon}
-                onChange={(value) => {
-                  updateBasicInfo({
-                    ...basic,
-                    icons: {
-                      ...(basic?.icons || {}),
-                      [field.key]: value,
-                    },
-                  });
-                }}
-              />
-            )}
-            <div className="ml-1 w-auto min-w-0 flex-1 text-sm font-medium text-foreground sm:w-[80px] sm:flex-none">
-              {t(`basicFields.${field.key}`)}
-            </div>
-            <div className="order-3 w-full min-w-0 sm:order-none sm:w-auto sm:flex-1">
-              <Field
-                label=""
-                value={(basic?.[field.key] as string) ?? ""}
-                onChange={(value) =>
-                  updateBasicInfo({
-                    ...basic,
+        <div className="flex items-center gap-2">
+          {!isProtected && (
+            <IconSelector
+              value={selectedIcon}
+              onChange={(value) => {
+                updateBasicInfo({
+                  ...basic,
+                  icons: {
+                    ...(basic?.icons || {}),
                     [field.key]: value,
-                  })
-                }
-                placeholder={`请输入${field.label}`}
-                type={field.type}
-              />
-            </div>
-          </div>
+                  },
+                });
+              }}
+            />
+          )}
 
-          <div className="order-2 ml-auto flex items-center gap-1 sm:order-none sm:ml-0">
+          <span className="flex-1 text-sm font-medium text-foreground">
+            {t(`basicFields.${field.key}`)}
+          </span>
+
+          <div className="flex items-center gap-1 shrink-0">
             <Button
               variant="ghost"
               size="sm"
               className={cn(
-                "shrink-0 h-8 px-2",
+                "shrink-0 h-7 w-7 p-0",
                 "text-neutral-500 dark:text-neutral-400",
                 "hover:text-neutral-700 dark:hover:text-neutral-200"
               )}
               onClick={() => toggleFieldVisibility(field.id, !field.visible)}
             >
               {field.visible ? (
-                <Eye className="w-4 h-4 text-primary" />
+                <Eye className="w-3.5 h-3.5 text-primary" />
               ) : (
-                <EyeOff className="w-4 h-4" />
+                <EyeOff className="w-3.5 h-3.5" />
               )}
             </Button>
 
-            {field.key !== "name" && field.key !== "title" && (
+            {!isProtected && (
               <Button
                 variant="ghost"
                 size="sm"
                 className={cn(
-                  "shrink-0 h-8 px-2",
-                  "text-neutral-500 dark:text-neutral-400",
-                  "hover:text-red-600 dark:hover:text-red-400"
+                  "shrink-0 h-7 w-7 p-0",
+                  "text-muted-foreground hover:text-foreground",
+                  "disabled:opacity-30"
                 )}
-                onClick={() => deleteBasicField(field.id)}
+                disabled={!canMoveUp}
+                onClick={() => moveField(field.id, "up")}
+                title={t("fieldStyle.moveUp")}
               >
-                <Trash2 className="w-4 h-4 text-red-400" />
+                <ChevronUp className="w-3.5 h-3.5" />
+              </Button>
+            )}
+
+            {!isProtected && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className={cn(
+                  "shrink-0 h-7 w-7 p-0",
+                  "text-muted-foreground hover:text-foreground",
+                  "disabled:opacity-30"
+                )}
+                disabled={!canMoveDown}
+                onClick={() => moveField(field.id, "down")}
+                title={t("fieldStyle.moveDown")}
+              >
+                <ChevronDown className="w-3.5 h-3.5" />
               </Button>
             )}
           </div>
-        </motion.div>
-      </Reorder.Item>
+        </div>
+
+        <Field
+          label=""
+          value={(basic?.[field.key] as string) ?? ""}
+          onChange={(value) =>
+            updateBasicInfo({
+              ...basic,
+              [field.key]: value,
+            })
+          }
+          placeholder={`请输入${field.label}`}
+          type={field.type}
+        />
+      </motion.div>
     );
   };
 
@@ -439,15 +428,9 @@ const BasicPanel: React.FC = () => {
                     {t("basicField")}
                   </motion.h3>
                   <AnimatePresence mode="popLayout">
-                    <Reorder.Group
-                      axis="y"
-                      as="div"
-                      values={basicFields}
-                      onReorder={handleBasicReorder}
-                      className="space-y-3"
-                    >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {basicFields.map((field) => renderBasicField(field))}
-                    </Reorder.Group>
+                    </div>
                   </AnimatePresence>
                 </motion.div>
 

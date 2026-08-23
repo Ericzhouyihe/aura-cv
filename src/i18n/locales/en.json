@@ -456,11 +456,16 @@
         "website": "Website",
         "location": "Location",
         "birthDate": "Birth Date",
+        "age": "Age",
         "employementStatus": "Employ"
       },
       "fieldVisibility": {
         "show": "Show",
         "hide": "Hide"
+      },
+      "fieldStyle": {
+        "moveUp": "Move Up",
+        "moveDown": "Move Down"
       },
       "githubContributions": "GitHub Contributions"
     },

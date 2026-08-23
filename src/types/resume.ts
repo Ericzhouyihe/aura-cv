@@ -64,6 +64,7 @@ export interface CustomFieldType {
 }
 export interface BasicInfo {
   birthDate: string;
+  age: string;
   name: string;
   title: string;
   email: string;

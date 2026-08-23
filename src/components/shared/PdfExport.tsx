@@ -133,6 +133,7 @@ const PdfExport = ({ children }: { children?: React.ReactNode }) => {
           title: tBasicField("title"),
           employementStatus: tBasicField("employementStatus"),
           birthDate: tBasicField("birthDate"),
+          age: tBasicField("age"),
           email: tBasicField("email"),
           phone: tBasicField("phone"),
           location: tBasicField("location")

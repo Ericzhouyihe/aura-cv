@@ -172,12 +172,9 @@ const BaseInfo = ({ basic = {} as BasicInfo, globalSettings, template }: BaseInf
                                             {item.value}
                                         </a>
                                     ) : item.key === "email" ? (
-                                        <a 
-                                            href={`mailto:${item.value}`} 
-                                            className="font-medium text-slate-600 hover:text-slate-900 underline truncate break-all [overflow-wrap:anywhere]"
-                                        >
+                                        <span className="font-medium text-slate-600 break-all [overflow-wrap:anywhere]">
                                             {item.value}
-                                        </a>
+                                        </span>
                                     ) : (
                                         <span className="font-medium text-slate-600 break-all [overflow-wrap:anywhere]">
                                             {item.value}

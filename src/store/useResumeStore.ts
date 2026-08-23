@@ -13,7 +13,7 @@ import {
   MenuSection,
   Certificate,
 } from "../types/resume";
-import { DEFAULT_TEMPLATES } from "@/config";
+import { DEFAULT_TEMPLATES, withDefaultBasicFields } from "@/config";
 import {
   initialResumeState,
   initialResumeStateEn,
@@ -186,22 +186,32 @@ const normalizeImportedResume = (
   resume: ResumeData,
   sourceModifiedAt?: number
 ) => {
+  let normalized = resume;
+
   if (
-    typeof sourceModifiedAt !== "number" ||
-    !Number.isFinite(sourceModifiedAt)
+    typeof sourceModifiedAt === "number" &&
+    Number.isFinite(sourceModifiedAt)
   ) {
-    return resume;
+    const fileUpdatedAt = parseTimestamp(resume.updatedAt);
+    if (fileUpdatedAt === null || fileUpdatedAt < sourceModifiedAt) {
+      normalized = {
+        ...resume,
+        updatedAt: new Date(sourceModifiedAt).toISOString(),
+      };
+    }
   }
 
-  const fileUpdatedAt = parseTimestamp(resume.updatedAt);
-  if (fileUpdatedAt !== null && fileUpdatedAt >= sourceModifiedAt) {
-    return resume;
+  if (normalized.basic) {
+    normalized = {
+      ...normalized,
+      basic: {
+        ...normalized.basic,
+        fieldOrder: withDefaultBasicFields(normalized.basic.fieldOrder),
+      },
+    };
   }
 
-  return {
-    ...resume,
-    updatedAt: new Date(sourceModifiedAt).toISOString(),
-  };
+  return normalized;
 };
 
 // 同步简历到文件系统
@@ -1052,7 +1062,23 @@ export const useResumeStore = create(
       }),
       merge: (persistedState, currentState) => {
         const persisted = persistedState as Partial<PersistedResumeStore>;
-        const resumes = persisted.resumes ?? currentState.resumes;
+        const rawResumes = persisted.resumes ?? currentState.resumes;
+        const resumes = Object.fromEntries(
+          Object.entries(rawResumes).map(([id, resume]) => [
+            id,
+            resume?.basic
+              ? {
+                  ...resume,
+                  basic: {
+                    ...resume.basic,
+                    fieldOrder: withDefaultBasicFields(
+                      resume.basic.fieldOrder
+                    ),
+                  },
+                }
+              : resume,
+          ])
+        ) as Record<string, ResumeData>;
         const activeResumeId =
           persisted.activeResumeId ?? currentState.activeResumeId;
 

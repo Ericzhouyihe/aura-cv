@@ -22,6 +22,7 @@ type ExportableBasicFieldKey =
   | "title"
   | "employementStatus"
   | "birthDate"
+  | "age"
   | "email"
   | "phone"
   | "location";
@@ -31,6 +32,7 @@ const BASIC_FIELD_KEYS = new Set<ExportableBasicFieldKey>([
   "title",
   "employementStatus",
   "birthDate",
+  "age",
   "email",
   "phone",
   "location"
@@ -41,6 +43,7 @@ const DEFAULT_BASIC_FIELD_LABELS: Record<ExportableBasicFieldKey, string> = {
   title: "Title",
   employementStatus: "Employment Status",
   birthDate: "Birth Date",
+  age: "Age",
   email: "Email",
   phone: "Phone",
   location: "Location"
