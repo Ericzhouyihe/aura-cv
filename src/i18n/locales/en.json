@@ -34,8 +34,8 @@
       "secondary": "Browse Templates"
     },
     "features": {
-      "title": "Why Choose Aura CV?",
-      "subtitle": "We provide an all-in-one resume solution to make your job search journey smoother",
+      "title": "Spend time on what matters",
+      "subtitle": "From organizing your story to exporting the final layout, Aura CV keeps every step clear and in your control.",
       "ai": {
         "badge": "AI Smart Check",
         "title": "Smart Detection, Professional Advice",
@@ -52,14 +52,14 @@
         "item1": "Local file storage",
         "item1_description": "Resume data securely stored on your computer's hard drive",
         "item2": "Multiple export formats",
-        "item2_description": "Support PDF and JSON format export",
+        "item2_description": "Export to PDF, JSON, and Markdown",
         "item3": "Support data export backup"
       },
       "preview": {
         "badge": "Real-time Preview",
         "title": "What You See Is What You Get",
         "item1": "Real-time preview of editing effects",
-        "item2": "Multiple export format support"
+        "item2": "Export to PDF, JSON, and Markdown"
       }
     },
     "news": {
@@ -71,8 +71,8 @@
     },
     "changelog": "Changelog",
     "cta": {
-      "title": "Start Your New Career Chapter",
-      "description": "Start using Aura CV now to create an impressive resume",
+      "title": "Start with a clearer resume",
+      "description": "Open Aura CV and turn your experience into a resume that represents you.",
       "button": "Start Using for Free"
     },
     "faq": {

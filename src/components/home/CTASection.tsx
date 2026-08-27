@@ -10,18 +10,7 @@ export default function CTASection() {
   return (
     <section className="py-32 md:py-48 bg-background relative overflow-hidden flex items-center justify-center min-h-[80vh]">
       
-      {/* Giant Background Typography */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-[0.04] dark:opacity-[0.06]">
-        <div className="text-[20vw] md:text-[18vw] font-black text-foreground whitespace-nowrap leading-[0.8] tracking-tighter">
-          MAGIC
-        </div>
-        <div 
-          className="text-[20vw] md:text-[18vw] font-black text-transparent whitespace-nowrap leading-[0.8] tracking-tighter" 
-          style={{ WebkitTextStroke: '2px hsl(var(--foreground))' }}
-        >
-          RESUME
-        </div>
-      </div>
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_35%,hsl(var(--primary)/0.12),transparent_42%)]" />
 
       {/* Fine Premium Grid */}
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)]" />

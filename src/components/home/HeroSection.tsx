@@ -10,7 +10,7 @@ export default function HeroSection() {
   const t = useTranslations("home");
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-background">
+    <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background px-0 pb-20 pt-28 md:pt-32">
       <ScrollBackground />
       
       {/* Background decoration */}
@@ -26,11 +26,11 @@ export default function HeroSection() {
             <span className="text-sm font-medium tracking-wide italic">{t("hero.badge")}</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-serif font-semibold tracking-tight leading-[1.1] mb-8 text-foreground/90">
+          <h1 className="mb-8 max-w-4xl text-5xl font-serif font-semibold tracking-tight leading-[1.05] text-foreground md:text-7xl">
             {t("hero.title")}
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="mx-auto mb-12 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground md:text-xl">
             {t("hero.subtitle")}
           </p>
 
