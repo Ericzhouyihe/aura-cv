@@ -19,6 +19,7 @@ const Logo: React.FC<LogoProps> = ({
       alt="Aura CV Logo"
       width={size}
       height={size}
+      style={{ height: "auto" }}
       className={cn("dark:invert", className)}
       onClick={onClick}
       priority={size >= 64}

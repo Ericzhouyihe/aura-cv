@@ -28,7 +28,7 @@
     },
     "hero": {
       "badge": "Open-source resume editor",
-      "title": "Focus on your story — Aura CV handles the layout",
+      "title": "Focus on your story.\nLayout is on us.",
       "subtitle": "Edit on the left, see it live on the right. Switching templates and themes takes effect instantly. Your data stays on your device, exportable to PDF, JSON, or Markdown anytime.",
       "cta": "Start for Free",
       "secondary": "Browse Templates",
@@ -76,8 +76,8 @@
     },
     "changelog": "Changelog",
     "cta": {
-      "title": "A good resume deserves the full picture",
-      "description": "Return to the editor and write each experience clearly — layout, fonts, and export are already taken care of.",
+      "title": "A resume worth seeing.",
+      "description": "Write each experience clearly — we handle the rest.",
       "button": "Start Using for Free"
     },
     "faq": {

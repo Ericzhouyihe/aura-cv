@@ -18,7 +18,7 @@ export default function CTASection() {
       <div className="container mx-auto px-6 relative z-10 text-center">
         <AnimatedFeature>
           <div className="flex flex-col items-center max-w-4xl mx-auto">
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium tracking-tight text-foreground mb-8 leading-[1.1]">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-medium tracking-tight text-foreground mb-8 leading-[1.15]">
               {t("cta.title")}
             </h2>
             

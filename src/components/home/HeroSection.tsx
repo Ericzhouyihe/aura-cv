@@ -1,6 +1,6 @@
 import { useTranslations } from "@/i18n/compat/client";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowRight, LayoutTemplate, Check } from "lucide-react";
+import { ArrowRight, LayoutTemplate, Check } from "lucide-react";
 import AnimatedFeature from "./client/AnimatedFeature";
 import GoDashboard from "./GoDashboard";
 import Image from "@/lib/image";
@@ -20,16 +20,11 @@ export default function HeroSection() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_60%_100%_at_50%_0%,hsl(var(--primary)/0.06),transparent)]" />
 
-      <div className="container relative z-10 mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-12 lg:gap-10">
+      <div className="container relative z-10 mx-auto grid max-w-6xl items-stretch gap-14 px-6 lg:grid-cols-12 lg:gap-10">
         {/* Left: value proposition */}
-        <div className="lg:col-span-5">
+        <div className="flex flex-col justify-center lg:col-span-5">
           <AnimatedFeature>
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/40 px-3 py-1.5 text-sm text-muted-foreground">
-              <Sparkles className="h-4 w-4 text-primary" />
-              {t("hero.badge")}
-            </div>
-
-            <h1 className="mb-6 mt-6 text-4xl font-serif font-semibold leading-[1.15] tracking-tight text-foreground md:text-6xl">
+            <h1 className="mb-6 whitespace-pre-line text-4xl font-serif font-semibold leading-[1.2] tracking-tight text-foreground md:text-5xl">
               {t("hero.title")}
             </h1>
 
@@ -84,7 +79,7 @@ export default function HeroSection() {
                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
                 <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
                 <span className="ml-3 hidden h-5 flex-1 max-w-[280px] items-center rounded-md bg-background/70 px-3 text-xs text-muted-foreground/70 sm:flex">
-                  aura-cv — {t("hero.windowTitle")}
+                  {t("header.title")} — {t("hero.windowTitle")}
                 </span>
               </div>
               <Image
