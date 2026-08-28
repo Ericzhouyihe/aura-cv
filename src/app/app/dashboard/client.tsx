@@ -88,11 +88,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           className="border-r border-border/40 bg-card/50 backdrop-blur-xl"
         >
           <SidebarHeader className="h-16 flex items-center justify-center border-b border-border/40">
-            <div className="w-full cursor-pointer justify-center flex items-center" onClick={() => router.push(`/${locale}`)}
+            <div className="w-full cursor-pointer justify-center flex items-center gap-2" onClick={() => router.push(`/${locale}`)}
             >
               <Logo
-                className=" hover:opacity-80 transition-opacity"
-                size={48}
+                className="hover:opacity-80 transition-opacity"
+                size={22}
               />
               {open && (
                 <span className="font-bold text-lg tracking-tight">

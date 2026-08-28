@@ -24,7 +24,7 @@ export default function HeroSection() {
         {/* Left: value proposition */}
         <div className="flex flex-col justify-center lg:col-span-5">
           <AnimatedFeature>
-            <h1 className="mb-6 whitespace-pre-line text-4xl font-serif font-semibold leading-[1.2] tracking-tight text-foreground md:text-5xl">
+            <h1 className="mb-6 font-serif font-semibold leading-[1.2] tracking-tight text-foreground text-2xl md:text-[26px]">
               {t("hero.title")}
             </h1>
 

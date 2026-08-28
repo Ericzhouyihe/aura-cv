@@ -28,7 +28,7 @@
     },
     "hero": {
       "badge": "Open-source resume editor",
-      "title": "Focus on your story.\nLayout is on us.",
+      "title": "Your experience, presented by Aura CV.",
       "subtitle": "Edit on the left, see it live on the right. Switching templates and themes takes effect instantly. Your data stays on your device, exportable to PDF, JSON, or Markdown anytime.",
       "cta": "Start for Free",
       "secondary": "Browse Templates",
@@ -77,7 +77,7 @@
     "changelog": "Changelog",
     "cta": {
       "title": "A resume worth seeing.",
-      "description": "Write each experience clearly — we handle the rest.",
+      "description": "Write each experience clearly — Aura CV handles the rest.",
       "button": "Start Using for Free"
     },
     "faq": {
