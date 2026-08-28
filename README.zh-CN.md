@@ -17,8 +17,6 @@ Aura CV 是一个现代化的在线简历编辑器，让创建专业简历变得
 
 ## 📸 项目截图
 
-<img width="1920" height="1440" alt="85_1x_shots_so" src="https://github.com/user-attachments/assets/4667e49a-7bf2-4379-9390-725e42799dc7" />
-
 
 ## ✨ 特性
 

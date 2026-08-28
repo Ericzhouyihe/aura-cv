@@ -16,8 +16,6 @@ Aura CV is a modern online resume editor that makes creating professional resume
 
 ## 📸 Screenshots
 
-<img width="1920" height="1440" alt="336_1x_shots_so" src="https://github.com/user-attachments/assets/18969a17-06f8-4a4b-94eb-284ba8442620" />
-
 
 ## ✨ Features
 
