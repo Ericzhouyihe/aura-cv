@@ -28,7 +28,7 @@ export default function LandingHeader() {
               className="flex items-center  cursor-pointer group"
               onClick={() => (window.location.href = `/${locale}/`)}
             >
-              <Logo size={60} />
+              <Logo size={32} />
               <span className="font-serif text-[24px] tracking-tight font-semibold text-foreground/90">
                 {t("header.title")}
               </span>

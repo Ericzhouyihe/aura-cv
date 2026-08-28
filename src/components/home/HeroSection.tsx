@@ -1,7 +1,6 @@
 import { useTranslations } from "@/i18n/compat/client";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowRight, Play } from "lucide-react";
-import ScrollBackground from "./client/ScrollBackground";
+import { Sparkles, ArrowRight, LayoutTemplate, Check } from "lucide-react";
 import AnimatedFeature from "./client/AnimatedFeature";
 import GoDashboard from "./GoDashboard";
 import Image from "@/lib/image";
@@ -9,70 +8,96 @@ import Image from "@/lib/image";
 export default function HeroSection() {
   const t = useTranslations("home");
 
+  const tags = [
+    t("hero.tag1"),
+    t("hero.tag2"),
+    t("hero.tag3"),
+  ];
+
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background px-0 pb-20 pt-28 md:pt-32">
-      <ScrollBackground />
-      
-      {/* Background decoration */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 opacity-30 pointer-events-none">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-blob" />
-        <div className="absolute bottom-40 right-10 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] animate-blob animation-delay-2000" />
-      </div>
+    <section className="relative overflow-hidden bg-background pb-20 pt-28 md:pt-36">
+      {/* subtle top divider instead of decorative blobs */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_60%_100%_at_50%_0%,hsl(var(--primary)/0.06),transparent)]" />
 
-      <div className="container relative z-10 mx-auto px-6 text-center max-w-4xl">
-        <AnimatedFeature>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary mb-10 backdrop-blur-sm">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium tracking-wide italic">{t("hero.badge")}</span>
-          </div>
-          
-          <h1 className="mb-8 max-w-4xl text-5xl font-serif font-semibold tracking-tight leading-[1.05] text-foreground md:text-7xl">
-            {t("hero.title")}
-          </h1>
-          
-          <p className="mx-auto mb-12 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground md:text-xl">
-            {t("hero.subtitle")}
-          </p>
+      <div className="container relative z-10 mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-12 lg:gap-10">
+        {/* Left: value proposition */}
+        <div className="lg:col-span-5">
+          <AnimatedFeature>
+            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/40 px-3 py-1.5 text-sm text-muted-foreground">
+              <Sparkles className="h-4 w-4 text-primary" />
+              {t("hero.badge")}
+            </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <GoDashboard>
-              <Button
-                size="lg"
-                className="rounded-2xl h-14 px-10 text-lg font-medium shadow-xl shadow-primary/20 hover:shadow-primary/30 active:scale-95 transition-all group"
-              >
-                {t("hero.cta")}
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </GoDashboard>
+            <h1 className="mb-6 mt-6 text-4xl font-serif font-semibold leading-[1.15] tracking-tight text-foreground md:text-6xl">
+              {t("hero.title")}
+            </h1>
 
-            <GoDashboard type="templates">
-              <Button
-                variant="outline"
-                size="lg"
-                className="rounded-2xl h-14 px-10 text-lg font-medium border-border/60 hover:bg-secondary/80 active:scale-95 transition-all"
-              >
-                <Play className="w-4 h-4 mr-2 fill-current" />
-                {t("hero.secondary")}
-              </Button>
-            </GoDashboard>
-          </div>
-        </AnimatedFeature>
+            <p className="mb-8 max-w-xl text-lg font-light leading-relaxed text-muted-foreground">
+              {t("hero.subtitle")}
+            </p>
 
-        <AnimatedFeature delay={0.3}>
-          <div className="mt-20 relative px-4 sm:px-0">
-             <div className="absolute -inset-4 bg-gradient-to-b from-primary/5 to-transparent rounded-[3rem] blur-2xl -z-10" />
-             <div className="relative rounded-3xl border border-border/50 bg-secondary/30 p-2 sm:p-4 backdrop-blur-sm shadow-2xl overflow-hidden group">
-                <Image
-                  src="/web-shot.png"
-                  alt="Resume Editor Preview"
-                  width={1200}
-                  height={800}
-                  className="rounded-2xl shadow-sm group-hover:scale-[1.01] transition-transform duration-700"
-                  priority
-                />
-             </div>
-          </div>
-        </AnimatedFeature>
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <GoDashboard>
+                <Button
+                  size="lg"
+                  className="group h-12 rounded-xl px-8 text-base font-medium shadow-lg shadow-primary/20 transition-all hover:shadow-primary/30 active:scale-95"
+                >
+                  {t("hero.cta")}
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </GoDashboard>
+
+              <GoDashboard type="templates">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="h-12 rounded-xl border-border/60 px-8 text-base font-medium transition-all hover:bg-secondary/60 active:scale-95"
+                >
+                  <LayoutTemplate className="mr-2 h-4 w-4" />
+                  {t("hero.secondary")}
+                </Button>
+              </GoDashboard>
+            </div>
+
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2">
+              {tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="flex items-center gap-1.5 text-sm text-muted-foreground"
+                >
+                  <Check className="h-4 w-4 text-primary/70" />
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </AnimatedFeature>
+        </div>
+
+        {/* Right: workbench screenshot in a window frame */}
+        <div className="lg:col-span-7">
+          <AnimatedFeature delay={0.2}>
+            <div className="overflow-hidden rounded-xl border border-border/60 bg-secondary/30 shadow-2xl shadow-foreground/5 transition-shadow hover:shadow-foreground/10">
+              {/* browser window chrome */}
+              <div className="flex h-9 items-center gap-1.5 border-b border-border/50 bg-secondary/60 px-4">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
+                <span className="ml-3 hidden h-5 flex-1 max-w-[280px] items-center rounded-md bg-background/70 px-3 text-xs text-muted-foreground/70 sm:flex">
+                  aura-cv — {t("hero.windowTitle")}
+                </span>
+              </div>
+              <Image
+                src="/web-shot.png"
+                alt={t("hero.imageAlt")}
+                width={1200}
+                height={629}
+                className="w-full"
+                priority
+              />
+            </div>
+          </AnimatedFeature>
+        </div>
       </div>
     </section>
   );

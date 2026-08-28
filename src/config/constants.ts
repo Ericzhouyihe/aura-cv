@@ -29,7 +29,7 @@ export const withDefaultBasicFields = (
   return missing.length ? [...current, ...missing] : current;
 };
 
-export const GITHUB_REPO_URL = "https://github.com/JOYCEQL/magic-resume";
+export const GITHUB_REPO_URL = "https://github.com/Ericzhouyihe/aura-cv";
 
 export const PDF_EXPORT_CONFIG = {
   SERVER_URL: "https://api.magicv.art/generate-pdf",

@@ -27,15 +27,20 @@
       "dashboard": "Dashboard"
     },
     "hero": {
-      "badge": "Smart Resume Creation",
-      "title": "Make Resume Creation Simple and Smart",
-      "subtitle": "Aura CV uses AI technology to help you quickly create professional resumes. No registration required, free to use, with secure data storage.",
-      "cta": "Get Started",
-      "secondary": "Browse Templates"
+      "badge": "Open-source resume editor",
+      "title": "Focus on your story — Aura CV handles the layout",
+      "subtitle": "Edit on the left, see it live on the right. Switching templates and themes takes effect instantly. Your data stays on your device, exportable to PDF, JSON, or Markdown anytime.",
+      "cta": "Start for Free",
+      "secondary": "Browse Templates",
+      "tag1": "No sign-up",
+      "tag2": "Stored locally",
+      "tag3": "Multi-format export",
+      "windowTitle": "Workbench",
+      "imageAlt": "Aura CV workbench: modules on the left, live resume preview on the right"
     },
     "features": {
-      "title": "Spend time on what matters",
-      "subtitle": "From organizing your story to exporting the final layout, Aura CV keeps every step clear and in your control.",
+      "title": "One workflow, every step of your resume",
+      "subtitle": "From structuring your experience to fine-tuning the layout and exporting — it all happens in one place.",
       "ai": {
         "badge": "AI Smart Check",
         "title": "Smart Detection, Professional Advice",
@@ -67,12 +72,12 @@
       "content": "New AI Resume Enhancement Feature is Live"
     },
     "footer": {
-      "copyright": " 2025 Aura CV. All rights reserved."
+      "copyright": "Aura CV. All rights reserved."
     },
     "changelog": "Changelog",
     "cta": {
-      "title": "Start with a clearer resume",
-      "description": "Open Aura CV and turn your experience into a resume that represents you.",
+      "title": "A good resume deserves the full picture",
+      "description": "Return to the editor and write each experience clearly — layout, fonts, and export are already taken care of.",
       "button": "Start Using for Free"
     },
     "faq": {

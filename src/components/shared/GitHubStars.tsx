@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { GITHUB_REPO_URL } from "@/config/constants";
 import { cn } from "@/lib/utils";
 
-const REPO_URL = "https://github.com/JOYCEQL/magic-resume";
-const API_URL = "https://api.github.com/repos/JOYCEQL/magic-resume";
+const API_URL = `https://api.github.com/repos/${GITHUB_REPO_URL.replace(
+  "https://github.com/",
+  ""
+)}`;
 
 export function GitHubStars() {
   const [stars, setStars] = useState<number | null>(null);
@@ -23,7 +26,7 @@ export function GitHubStars() {
 
   return (
     <motion.a
-      href={REPO_URL}
+      href={GITHUB_REPO_URL}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(

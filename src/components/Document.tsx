@@ -29,7 +29,7 @@ export default function Document({ children, locale, bodyClassName }: Props) {
           type="font/ttf"
           crossOrigin="anonymous"
         />
-        <link rel="icon" href="/favicon.ico?v=2" />
+        <link rel="icon" href="/favicon.ico?v=3" />
       </head>
       <body className={bodyClassName}>{children}</body>
     </html>

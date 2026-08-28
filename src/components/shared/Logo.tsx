@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "@/lib/image";
+import { cn } from "@/lib/utils";
 
 interface LogoProps {
   size?: number;
@@ -14,11 +15,11 @@ const Logo: React.FC<LogoProps> = ({
 }) => {
   return (
     <Image
-      src="/logo.svg"
+      src="/logo.png"
       alt="Aura CV Logo"
       width={size}
       height={size}
-      className={className}
+      className={cn("dark:invert", className)}
       onClick={onClick}
       priority={size >= 64}
     />
