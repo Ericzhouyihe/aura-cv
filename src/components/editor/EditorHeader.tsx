@@ -14,6 +14,7 @@ import { useRouter } from "@/lib/navigation";
 import { Input } from "@/components/ui/input";
 import PdfExport from "../shared/PdfExport";
 import ThemeToggle from "../shared/ThemeToggle";
+import LanguageSwitch from "../shared/LanguageSwitch";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useGrammarCheck } from "@/hooks/useGrammarCheck";
 import {
@@ -243,6 +244,7 @@ export function EditorHeader() {
              </div>
           )}
 
+          <LanguageSwitch />
           <ThemeToggle />
           <div className="flex items-center">
             <PdfExport>

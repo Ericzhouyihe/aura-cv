@@ -334,6 +334,7 @@
         "addCustomSection": "添加模块",
         "addCustomSectionOption": "添加自定义模块",
         "standardSections": {
+          "basic": "基本信息",
           "skills": "专业技能",
           "experience": "工作经验",
           "projects": "项目经历",
@@ -791,29 +792,29 @@
       "clickToConfigure": "点击前往设置"
     }
   },
-  "aiPolishDialog": {
-    "title": "AI 润色",
-    "description": {
-      "ready": "填写可选的自定义要求后，点击「开始润色」",
-      "polishing": "正在为您润色内容...",
-      "finished": "已经为您优化了内容，请查看效果"
+  "aiRewritePanel": {
+    "title": "智能改写",
+    "inputPlaceholder": "点击上方关键词快速填入，或直接输入自定义要求",
+    "chip1": "更简洁专业",
+    "chip2": "突出技术能力",
+    "chip3": "增加量化数据",
+    "chip4": "优化语言表达",
+    "chip5": "突出工作成果",
+    "chip6": "针对XX职位进行优化",
+    "generating": "生成中...",
+    "result": "改写结果",
+    "button": {
+      "go": "改写",
+      "regenerate": "重新生成",
+      "apply": "应用内容",
+      "close": "关闭"
+    },
+    "toast": {
+      "applied": "已应用到编辑器"
     },
     "error": {
       "configRequired": "请先配置 AI 模型",
-      "polishFailed": "润色失败",
-      "applied": "已应用润色内容"
-    },
-    "content": {
-      "original": "原始内容",
-      "polished": "润色后的内容"
-    },
-    "customInstructions": "自定义要求",
-    "customInstructionsPlaceholder": "例如：请用更技术化的表述、突出量化成果、语气偏正式…（选填，留空则按默认规则润色）",
-    "button": {
-      "start": "开始润色",
-      "regenerate": "重新生成",
-      "generating": "生成中...",
-      "apply": "应用内容"
+      "failed": "改写失败"
     }
   },
   "templates": {

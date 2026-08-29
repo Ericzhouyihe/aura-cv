@@ -1,8 +1,10 @@
 import React from "react";
 import { Pencil, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslations } from "@/i18n/compat/client";
 import { useResumeStore } from "@/store/useResumeStore";
 import { cn } from "@/lib/utils";
+import { getModuleDisplayTitle } from "@/lib/moduleTitle";
 import BasicPanel from "./basic/BasicPanel";
 import EducationPanel from "./education/EducationPanel";
 import ProjectPanel from "./project/ProjectPanel";
@@ -22,6 +24,27 @@ export function EditPanel() {
   const { activeResume, updateMenuSections, toggleSectionVisibility } = useResumeStore();
   if (!activeResume) return;
   const { activeSection = "", menuSections = [] } = activeResume || {};
+  const tSections = useTranslations(
+    "workbench.sidePanel.layout.standardSections"
+  );
+  const activeMenuSection = menuSections.find((s) => s.id === activeSection);
+  const activeDisplayTitle = activeMenuSection
+    ? getModuleDisplayTitle(activeMenuSection, tSections)
+    : "";
+
+  const handleTitleChange = (value: string) => {
+    const newMenuSections = menuSections.map((s) => {
+      if (s.id === activeSection) {
+        return {
+          ...s,
+          title: value,
+          titleCustomized: true
+        };
+      }
+      return s;
+    });
+    updateMenuSections(newMenuSections);
+  };
 
   const renderFields = () => {
     switch (activeSection) {
@@ -75,20 +98,9 @@ export function EditPanel() {
                     "flex-1 text-lg font-medium text-primary border-black bg-transparent outline-none pb-1 text-primary"
                   )}
                   type="text"
-                  value={
-                    menuSections?.find((s) => s.id === activeSection)?.title
-                  }
+                  value={activeDisplayTitle}
                   onChange={(e) => {
-                    const newMenuSections = menuSections.map((s) => {
-                      if (s.id === activeSection) {
-                        return {
-                          ...s,
-                          title: e.target.value,
-                        };
-                      }
-                      return s;
-                    });
-                    updateMenuSections(newMenuSections);
+                    handleTitleChange(e.target.value);
                   }}
                 />
                 <TooltipProvider delayDuration={300}>
@@ -125,20 +137,9 @@ export function EditPanel() {
                     "flex-1 text-lg  font-medium  text-primary border-black  bg-transparent outline-none   pb-1 text-primary"
                   )}
                   type="text"
-                  value={
-                    menuSections?.find((s) => s.id === activeSection)?.title
-                  }
+                  value={activeDisplayTitle}
                   onChange={(e) => {
-                    const newMenuSections = menuSections.map((s) => {
-                      if (s.id === activeSection) {
-                        return {
-                          ...s,
-                          title: e.target.value,
-                        };
-                      }
-                      return s;
-                    });
-                    updateMenuSections(newMenuSections);
+                    handleTitleChange(e.target.value);
                   }}
                 />
                 <TooltipProvider delayDuration={300}>

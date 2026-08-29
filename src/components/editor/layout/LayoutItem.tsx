@@ -9,6 +9,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getModuleDisplayTitle } from "@/lib/moduleTitle";
 import { MenuSection } from "@/types/resume";
 import { useTranslations } from "@/i18n/compat/client";
 import {
@@ -50,6 +51,10 @@ const LayoutItem = ({
 }: LayoutItemProps) => {
   const dragControls = useDragControls();
   const t = useTranslations("common");
+  const tSections = useTranslations(
+    "workbench.sidePanel.layout.standardSections"
+  );
+  const displayTitle = getModuleDisplayTitle(item, tSections);
 
   if (isBasic) {
     return (
@@ -73,7 +78,7 @@ const LayoutItem = ({
             {item.icon}
           </span>
           <span className={cn("text-sm flex-1 cursor-pointer")}>
-            {item.title}
+            {displayTitle}
           </span>
         </div>
       </div>
@@ -98,8 +103,8 @@ const LayoutItem = ({
     >
       <button
         type="button"
-        aria-label={`拖拽排序${item.title}`}
-        title={`拖拽排序${item.title}`}
+        aria-label={`拖拽排序${displayTitle}`}
+        title={`拖拽排序${displayTitle}`}
         onPointerDown={(event) => {
           dragControls.start(event);
         }}
@@ -131,12 +136,12 @@ const LayoutItem = ({
           >
             {item.icon}
           </span>
-          <span className="min-w-0 flex-1 truncate text-sm">{item.title}</span>
+          <span className="min-w-0 flex-1 truncate text-sm">{displayTitle}</span>
           <div className="mr-1 flex shrink-0 items-center">
             <button
               type="button"
-              aria-label={`上移${item.title}`}
-              title={`上移${item.title}`}
+              aria-label={`上移${displayTitle}`}
+              title={`上移${displayTitle}`}
               disabled={!canMoveUp}
               onClick={(event) => {
                 event.stopPropagation();
@@ -148,8 +153,8 @@ const LayoutItem = ({
             </button>
             <button
               type="button"
-              aria-label={`下移${item.title}`}
-              title={`下移${item.title}`}
+              aria-label={`下移${displayTitle}`}
+              title={`下移${displayTitle}`}
               disabled={!canMoveDown}
               onClick={(event) => {
                 event.stopPropagation();
@@ -162,8 +167,8 @@ const LayoutItem = ({
           </div>
           <motion.button
             type="button"
-            aria-label={`${item.enabled ? "隐藏" : "显示"}${item.title}`}
-            title={`${item.enabled ? "隐藏" : "显示"}${item.title}`}
+            aria-label={`${item.enabled ? "隐藏" : "显示"}${displayTitle}`}
+            title={`${item.enabled ? "隐藏" : "显示"}${displayTitle}`}
             onClick={(e) => {
               e.stopPropagation();
               toggleSectionVisibility(item.id);
@@ -184,8 +189,8 @@ const LayoutItem = ({
             <AlertDialogTrigger asChild>
               <motion.button
                 type="button"
-                aria-label={`删除${item.title}`}
-                title={`删除${item.title}`}
+                aria-label={`删除${displayTitle}`}
+                title={`删除${displayTitle}`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={(e) => e.stopPropagation()}
@@ -199,7 +204,7 @@ const LayoutItem = ({
             </AlertDialogTrigger>
             <AlertDialogContent onClick={(e) => e.stopPropagation()}>
               <AlertDialogHeader>
-                <AlertDialogTitle>{t("delete")} {item.title}</AlertDialogTitle>
+                <AlertDialogTitle>{t("delete")} {displayTitle}</AlertDialogTitle>
                 <AlertDialogDescription>
                   {t("deleteModuleConfirm")}
                 </AlertDialogDescription>
