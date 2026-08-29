@@ -16,6 +16,7 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/i18n/compat/client";
 import { cn } from "@/lib/utils";
+import { getModuleDisplayTitle } from "@/lib/moduleTitle";
 import { useResumeStore } from "@/store/useResumeStore";
 import type { MenuSection } from "@/types/resume";
 
@@ -42,6 +43,10 @@ function DraggableModuleTab({
   const dragControls = useDragControls();
   const t = useTranslations("workbench.desktop");
   const tCommon = useTranslations("common");
+  const tSections = useTranslations(
+    "workbench.sidePanel.layout.standardSections"
+  );
+  const displayTitle = getModuleDisplayTitle(section, tSections);
 
   return (
     <Reorder.Item
@@ -56,13 +61,13 @@ function DraggableModuleTab({
           : "cursor-grab active:cursor-grabbing"
       )}
       whileDrag={{ scale: 1.04, zIndex: 30 }}
-      title={t("dragSection", { title: section.title })}
+      title={t("dragSection", { title: displayTitle })}
     >
       <button
         ref={buttonRef}
         type="button"
         onClick={onActivate}
-        aria-label={t("editSection", { title: section.title })}
+        aria-label={t("editSection", { title: displayTitle })}
         aria-pressed={active}
         className={cn(
           tabClassName,
@@ -87,15 +92,15 @@ function DraggableModuleTab({
             <GripVertical className="absolute -left-2 h-3 w-3 text-muted-foreground/50" />
           )}
         </span>
-        <span className="block w-full truncate leading-4">{section.title}</span>
+        <span className="block w-full truncate leading-4">{displayTitle}</span>
       </button>
 
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <button
             type="button"
-            aria-label={t("deleteSection", { title: section.title })}
-            title={t("deleteSection", { title: section.title })}
+            aria-label={t("deleteSection", { title: displayTitle })}
+            title={t("deleteSection", { title: displayTitle })}
             onPointerDown={(event) => event.stopPropagation()}
             onClick={(event) => event.stopPropagation()}
             className={cn(
@@ -109,7 +114,7 @@ function DraggableModuleTab({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {tCommon("delete")} {section.title}
+              {tCommon("delete")} {displayTitle}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {tCommon("deleteModuleConfirm")}
@@ -140,6 +145,9 @@ export function ModuleTabStrip({
   className,
 }: ModuleTabStripProps) {
   const t = useTranslations("workbench.desktop");
+  const tSections = useTranslations(
+    "workbench.sidePanel.layout.standardSections"
+  );
   const { activeResume, setActiveSection, reorderSections, deleteSection } =
     useResumeStore();
   const { activeSection, menuSections = [] } = activeResume || {};
@@ -184,7 +192,11 @@ export function ModuleTabStrip({
             }}
             type="button"
             onClick={() => setActiveSection(basicSection.id)}
-            aria-label={t("editSection", { title: basicSection.title })}
+            aria-label={t("editSection", {
+              title: basicSection
+                ? getModuleDisplayTitle(basicSection, tSections)
+                : ""
+            })}
             aria-pressed={activeSection === basicSection.id}
             className={cn(
               tabClassName,
@@ -197,7 +209,7 @@ export function ModuleTabStrip({
               {basicSection.icon}
             </span>
             <span className="block w-full truncate leading-4">
-              {basicSection.title}
+              {basicSection && getModuleDisplayTitle(basicSection, tSections)}
             </span>
           </button>
         )}

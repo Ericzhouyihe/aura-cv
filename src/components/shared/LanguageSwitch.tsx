@@ -24,7 +24,12 @@ export default function LanguageSwitch() {
     const currentPathLocale = getLocaleFromPathname(pathname);
     if (currentPathLocale) {
       navigate({ to: replacePathLocale(pathname, nextLocale) });
+      return;
     }
+
+    // /app 等无语言前缀的页面语言完全由 cookie 决定，
+    // 需要整页重载才能让 i18n 上下文按新 cookie 重新解析
+    window.location.reload();
   };
 
   return (

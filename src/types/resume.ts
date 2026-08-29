@@ -178,6 +178,8 @@ export interface MenuSection {
   icon: string;
   enabled: boolean;
   order: number;
+  // 用户是否在编辑面板改过模块名；未改名时编辑器 UI 按当前语言显示原生模块名
+  titleCustomized?: boolean;
 }
 
 export interface ResumeData {

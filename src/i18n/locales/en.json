@@ -380,6 +380,7 @@
         "addCustomSection": "Add Module",
         "addCustomSectionOption": "Add Custom Section",
         "standardSections": {
+          "basic": "Profile",
           "skills": "Skills",
           "experience": "Experience",
           "projects": "Projects",
@@ -746,29 +747,29 @@
       "skill": "Skill"
     }
   },
-  "aiPolishDialog": {
-    "title": "AI Polish",
-    "description": {
-      "ready": "Add optional instructions, then click \"Start polish\"",
-      "polishing": "Polishing your content...",
-      "finished": "Content has been optimized, please check the result"
+  "aiRewritePanel": {
+    "title": "AI Rewrite",
+    "inputPlaceholder": "Click a keyword above to fill in, or type your own instructions",
+    "chip1": "More concise & professional",
+    "chip2": "Highlight technical skills",
+    "chip3": "Add quantified results",
+    "chip4": "Improve wording",
+    "chip5": "Highlight achievements",
+    "chip6": "Optimize for [target role]",
+    "generating": "Generating...",
+    "result": "Rewritten result",
+    "button": {
+      "go": "Rewrite",
+      "regenerate": "Regenerate",
+      "apply": "Apply Content",
+      "close": "Close"
+    },
+    "toast": {
+      "applied": "Applied to the editor"
     },
     "error": {
       "configRequired": "Please configure AI model first",
-      "polishFailed": "Polish failed",
-      "applied": "Polish content applied"
-    },
-    "content": {
-      "original": "Original Content",
-      "polished": "Polished Content"
-    },
-    "customInstructions": "Custom instructions",
-    "customInstructionsPlaceholder": "e.g. Use more technical terms, highlight metrics, keep tone formal… (optional)",
-    "button": {
-      "start": "Start polish",
-      "regenerate": "Regenerate",
-      "generating": "Generating...",
-      "apply": "Apply Content"
+      "failed": "Rewrite failed"
     }
   },
   "photoConfig": {
