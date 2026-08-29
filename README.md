@@ -12,10 +12,7 @@
 
 </div>
 
-Aura CV is a modern online resume editor that makes creating professional resumes simple and enjoyable. Built with TanStack Start and Framer Motion, it supports real-time preview and custom themes.
-
-## 📸 Screenshots
-
+Aura CV is a modern online resume editor that makes creating professional resumes simple and fun. **This project is a secondary development based on Magic‑Resume**, supporting real-time preview and custom themes.
 
 ## ✨ Features
 
